@@ -10,7 +10,7 @@ def get_server_ip():
 
 
 def get_connected_devices():
-    print("Getting Devices")
+    print("Getting Connected Devices")
     
     server_ip = get_server_ip()
     print(f'Server IP: {server_ip}')
