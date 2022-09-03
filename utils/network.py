@@ -1,25 +1,12 @@
 import platform
 import nmap
-
-if platform.system() == 'Windows':
-    import pythoncom
-
-from who_is_on_my_wifi import device
-
-
-def get_server_info():
-    if platform.system() == 'Windows':
-        pythoncom.CoInitialize()
-
-    return device()
+import socket
 
 
 def get_server_ip():
-    return get_server_info()[4]
-
-
-def get_modem_ip():
-    return get_server_info()[8]
+    hostname = socket.gethostname()
+    ip = socket.gethostbyname(hostname)
+    return ip
 
 
 def get_connected_devices():

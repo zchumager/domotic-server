@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, send_from_directory, jsonify
 
-from utils.network import get_server_info, get_connected_devices
+from utils.network import get_connected_devices
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -26,11 +26,6 @@ def about():
         'version': 1.0,
         'author': 'Pedro Arnoldo Machado Duran'
     })
-
-
-@app.route('/server_info')
-def server_info():
-    return jsonify(get_server_info())
 
 
 @app.route("/connected_devices")
