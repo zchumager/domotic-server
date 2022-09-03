@@ -1,12 +1,15 @@
 import platform
-import pythoncom
 import nmap
+
+if platform.system() == 'Windows':
+    import pythoncom
 
 from who_is_on_my_wifi import device
 
 
 def get_server_info():
-    pythoncom.CoInitialize()
+    if platform.system() == 'Windows':
+        pythoncom.CoInitialize()
 
     return device()
 
