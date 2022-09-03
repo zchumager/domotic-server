@@ -5,10 +5,13 @@
 > source venv/bin/activate
 
 ### Install dependencies
-> python -m pip install -r requirements.txt
+> sudo python -m pip install -r requirements.txt
+
+## for installing a new dependency
+> sudo python -m pip install
 
 ### Run RESTful API Server
-> python -m flask run --host=0.0.0.0
+> sudo python -m flask run --host=0.0.0.0
 
 ## Get devices from CLI
-> python cli --devices
+> sudo python cli --devices
