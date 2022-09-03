@@ -5,12 +5,15 @@ import socket
 
 def get_server_ip():
     hostname = socket.gethostname()
-    ip = socket.gethostbyname(hostname)
+    ip = socket.gethostbyname(hostname + ".local")
     return ip
 
 
 def get_connected_devices():
+    print("Getting Devices")
+    
     server_ip = get_server_ip()
+    print(f'Server IP: {server_ip}')
 
     network_segment = f'{server_ip}/24'
     if platform.system() == 'Windows':
@@ -21,7 +24,7 @@ def get_connected_devices():
 
     network = nm_scanner.scan(network_segment, arguments='-snP')
     connected_devices = network['scan']
-
+    
     mac_addresses = [device[1].get('addresses').get('mac')
                      for device in connected_devices.items()
                      if device[1].get('addresses').get('mac') is not None]
