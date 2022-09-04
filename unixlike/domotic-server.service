@@ -1,0 +1,10 @@
+[Unit]
+Description=Guinicorn instance to serve REST API
+After=network.target
+
+[Service]
+WorkingDirectory=/home/admin/Repos/domotic-server
+ExecStart=/usr/bin/sudo /home/admin/Repos/domotic-server/venv/bin/gunicorn --bind=0.0.0.0:5000 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
