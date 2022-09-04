@@ -17,4 +17,4 @@
 > python -m pip freeze > requirements.txt
 
 ### Install dependencies
-python -m pip install -r ./requirements.txt
+> python -m pip install -r ./requirements.txt

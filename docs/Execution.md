@@ -14,7 +14,7 @@
 > sudo python -m pip install
 
 ### Run CLI in venv
-sudo python cli.py --devices
+> sudo python cli.py --devices
 
 ### Run Web API in venv
 > sudo python -m flask run --host=0.0.0.0

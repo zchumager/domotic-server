@@ -1,5 +1,5 @@
 ### Edit domotic-server service
-sudo nano /etc/systemd/system/domotic-server.service
+> sudo nano /etc/systemd/system/domotic-server.service
 
 ### check domotic-server service status
 > sudo systemctl status domotic-server
