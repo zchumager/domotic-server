@@ -1,4 +1,4 @@
-### create or modify domotic-server service
+### Edit domotic-server service
 sudo nano /etc/systemd/system/domotic-server.service
 
 ### check domotic-server service status
