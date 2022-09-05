@@ -1,6 +1,7 @@
 import json
 import threading
 import requests
+import os
 
 
 def job():
@@ -12,7 +13,9 @@ def job():
 
     # getting connected devices from API
     connected_devices = connected_devices.json()
-    with open('output.log', 'w') as log:
+
+    logfile = os.path.abspath('./domotic-cronjob.log')
+    with open(logfile, 'w') as log:
         json.dump(connected_devices, log)
 
 
