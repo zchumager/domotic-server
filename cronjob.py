@@ -1,6 +1,6 @@
+import json
 import threading
 import requests
-import pprint
 
 
 def job():
@@ -12,7 +12,8 @@ def job():
 
     # getting connected devices from API
     connected_devices = connected_devices.json()
-    pprint.pprint(connected_devices)
+    with open('output.log', 'w') as log:
+        json.dump(connected_devices, log)
 
 
 if __name__ == "__main__":
