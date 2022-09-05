@@ -16,7 +16,8 @@ def job():
 
     logfile = os.path.abspath('./domotic-cronjob.log')
     with open(logfile, 'w') as log:
-        json.dump(connected_devices, log)
+        #json.dump(connected_devices, log)
+        log.write(logfile)
 
 
 if __name__ == "__main__":
