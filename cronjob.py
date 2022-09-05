@@ -24,8 +24,7 @@ def job():
 
     logfile = logfile_path()
     with open(logfile, 'w') as log:
-        # json.dump(connected_devices, log)
-        log.write(logfile)
+        json.dump(connected_devices, log)
 
 
 if __name__ == "__main__":
