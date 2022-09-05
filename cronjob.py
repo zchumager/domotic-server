@@ -1,8 +1,9 @@
 import json
 import platform
 import threading
-import requests
 import os
+
+from utils.network import get_connected_devices
 
 
 def logfile_path():
@@ -15,16 +16,16 @@ def logfile_path():
 def job():
     print("watching")
 
-    connected_devices = requests.get("http://192.168.1.8:5000/connected_devices")
-    if not connected_devices.ok:
-        connected_devices = []
-
     # getting connected devices from API
-    connected_devices = connected_devices.json()
+    connected_devices = get_connected_devices()
 
     logfile = logfile_path()
-    with open(logfile, 'w') as log:
-        json.dump(connected_devices, log)
+    if os.path.exists(logfile):
+        print("Comparing connected users with log file")
+    else:
+        print("Creating log file with connected users")
+        with open(logfile, 'w') as log:
+            json.dump(connected_devices, log)
 
 
 if __name__ == "__main__":
