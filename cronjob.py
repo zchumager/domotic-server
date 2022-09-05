@@ -1,7 +1,15 @@
 import json
+import platform
 import threading
 import requests
 import os
+
+
+def logfile_path():
+    if platform.system() == 'Windows':
+        return os.path.abspath('./domotic-cronjob.log')
+    elif platform.system() == 'Linux':
+        return '/home/admin/Repos/domotic-server/domotic-cronjob.log'
 
 
 def job():
@@ -14,9 +22,9 @@ def job():
     # getting connected devices from API
     connected_devices = connected_devices.json()
 
-    logfile = os.path.abspath('./domotic-cronjob.log')
+    logfile = logfile_path()
     with open(logfile, 'w') as log:
-        #json.dump(connected_devices, log)
+        # json.dump(connected_devices, log)
         log.write(logfile)
 
 
