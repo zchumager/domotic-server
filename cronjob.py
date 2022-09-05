@@ -9,10 +9,7 @@ base_dir = os.path.abspath(os.path.dirname(__file__))
 
 
 def logfile_path():
-    if platform.system() == 'Windows':
-        return os.path.abspath('./domotic-cronjob.log')
-    elif platform.system() == 'Linux':
-        return os.path.join(base_dir, 'domotic-cronjob.log')
+    return os.path.join(base_dir, 'connected_users.log')
 
 
 def job():
@@ -27,7 +24,7 @@ def job():
     else:
         print("Creating log file with connected users")
         with open(logfile, 'w') as log:
-            json.dump(logfile, log)
+            json.dump(connected_devices, log)
 
 
 if __name__ == "__main__":
