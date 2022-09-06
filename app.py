@@ -1,5 +1,4 @@
 import os
-import uuid
 
 from flask import Flask, send_from_directory, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
@@ -44,7 +43,7 @@ def login():
         return jsonify(msg='bad request not registered device'), 409
 
     if registered_device.role == "visitor":
-        return jsonify(msg='a visitor cannot an access token'), 409
+        return jsonify(msg='a visitor cannot an access token'), 403
 
     access_token = create_access_token(identity=partial_mac)
     return jsonify(access_token=access_token), 200
@@ -87,7 +86,7 @@ def join2home():
         session.commit()
 
         if device.id is None:
-            return jsonify(msg="device could not be registered"), 409
+            return jsonify(msg="device could not be registered"), 403
 
         return jsonify(body), 200
     else:

@@ -1,3 +1,4 @@
+import itertools
 from utils.models import session, Device
 
 
@@ -10,3 +11,8 @@ def get_registered_device(partial_mac):
     # session from models file
     device = session.query(Device).filter(Device.partial_mac == partial_mac).first()
     return device
+
+
+def get_active_devices(macs):
+    activive_users = session.query(Device).filter(Device.partial_mac.in_(macs)).all()
+    return activive_users

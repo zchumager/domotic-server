@@ -28,10 +28,6 @@ class Device(Orm):
     is_sick = Column(Boolean, nullable=False)
     medical_condition_level = Column(String)
 
-    def __repr__(self):
-        return f"{self. firstname} {self.lastname} connected on {self.partial_mac}" \
-               f"Medical Condition: {self.medical_condition_level}"
-
 
 class DeviceSchema(SQLAlchemySchema):
     class Meta:
