@@ -22,7 +22,7 @@ def favicon():
 
 @app.route('/')
 def index():
-    return 'REST API'
+    return '<h1>REST API</h1>'
 
 
 @app.route("/about")
@@ -40,10 +40,13 @@ def login():
     registered_device = get_registered_device(partial_mac)
 
     if registered_device is None:
-        return jsonify({'msg': 'bad request not registered device'})
+        return jsonify(msg='bad request not registered device')
+
+    if registered_device.role == "visitor":
+        return jsonify(msg='a visitor cannot an access token')
 
     access_token = create_access_token(identity=partial_mac)
-    return jsonify(access_token)
+    return jsonify(access_token=access_token), 200
 
 
 @app.route("/join2home", methods=["POST"])
@@ -83,17 +86,17 @@ def join2home():
         session.commit()
 
         if device.id is None:
-            return jsonify(msg="device could not be registered")
+            return jsonify(msg="device could not be registered"), 409
 
         return jsonify(body), 200
     else:
-        return jsonify(msg="this is already registered")
+        return jsonify(msg="this is already registered"), 409
 
 
 @app.route("/connected_devices")
 @jwt_required()
 def connected_devices():
-    return jsonify(get_connected_devices())
+    return jsonify(get_connected_devices()), 200
 
 
 @app.teardown_request
