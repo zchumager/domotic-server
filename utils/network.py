@@ -30,4 +30,3 @@ def get_connected_devices():
                      if device[1].get('addresses').get('mac') is not None]
 
     return mac_addresses
-

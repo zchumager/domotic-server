@@ -3,3 +3,4 @@ utils/__pycache__/
 venv
 __pycache__/
 *.log
+utils/*.db
