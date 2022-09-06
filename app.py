@@ -1,5 +1,4 @@
 import os
-import uuid
 
 from flask import Flask, send_from_directory, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
@@ -10,7 +9,7 @@ from utils.models import session, Device
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-app.config['JWT_SECRET_KEY'] = uuid.uuid1().hex
+app.config['JWT_SECRET_KEY'] = 'domotic-server-secret'
 jwt = JWTManager(app)
 
 static_folder = os.path.join(app.root_path, 'static')
