@@ -10,7 +10,7 @@ from utils.models import session, Device
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-app.config['JWT_SECRET_KEY'] = uuid.uuid1().hex
+app.config['JWT_SECRET_KEY'] = 'domotic_server_secret_key'
 jwt = JWTManager(app)
 
 static_folder = os.path.join(app.root_path, 'static')
