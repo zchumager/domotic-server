@@ -1,28 +1,29 @@
 import os
+import uuid
 
 from flask import Flask, send_from_directory, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required
 
 from utils.network import get_connected_devices
 from utils.crud import get_registered_device, get_registered_devices
-
-from utils.models import session, Device, device_schema
+from utils.models import session, Device
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
-app.config['JWT_SECRET_KEY'] = 'secret-paraphase'
+app.config['JWT_SECRET_KEY'] = uuid.uuid1().hex
 jwt = JWTManager(app)
 
-
-@app.route('/favicon.ico')
-def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+static_folder = os.path.join(app.root_path, 'static')
 
 
 @app.route('/')
 def index():
-    return '<h1>REST API</h1>'
+    return send_from_directory(static_folder, 'index.html')
+
+
+@app.route('/favicon')
+def favicon():
+    return send_from_directory(static_folder, 'favicon.ico')
 
 
 @app.route("/about")
@@ -40,10 +41,10 @@ def login():
     registered_device = get_registered_device(partial_mac)
 
     if registered_device is None:
-        return jsonify(msg='bad request not registered device')
+        return jsonify(msg='bad request not registered device'), 409
 
     if registered_device.role == "visitor":
-        return jsonify(msg='a visitor cannot an access token')
+        return jsonify(msg='a visitor cannot an access token'), 409
 
     access_token = create_access_token(identity=partial_mac)
     return jsonify(access_token=access_token), 200
