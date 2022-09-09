@@ -56,12 +56,13 @@ def join2home():
     user = get_registered_device(partial_mac)
 
     if user is None:
+        device_name = body.get('device_name', None)
         email = body.get('email', None)
         firstname = body.get('firstname', None)
         lastname = body.get('lastname', None)
 
         desired_temperature = body.get('desired_temperature', None)
-        is_sick = body.get('is_sick', None)
+        medical_condition = body.get('medical_condition', None)
         medical_condition_level = body.get('medical_condition_level', None)
 
         registered_devices = get_registered_devices()
@@ -73,12 +74,13 @@ def join2home():
 
         device = Device(
             partial_mac=partial_mac,
+            device_name=device_name,
             email=email,
             firstname=firstname,
             lastname=lastname,
             role=role,
             desired_temperature=desired_temperature,
-            is_sick=is_sick,
+            medical_condition=medical_condition,
             medical_condition_level=medical_condition_level
         )
 

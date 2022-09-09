@@ -18,6 +18,7 @@ class Device(Orm):
 
     id = Column(Integer, primary_key=True)
     partial_mac = Column(String, unique=True, nullable=False)
+    device_name = Column(String, nullable=False)
 
     email = Column(String)
     firstname = Column(String, nullable=False)
@@ -25,7 +26,7 @@ class Device(Orm):
 
     role = Column(String, nullable=False)
     desired_temperature = Column(Integer, nullable=False)
-    is_sick = Column(Boolean, nullable=False)
+    medical_condition = Column(Boolean, nullable=False)
     medical_condition_level = Column(String)
 
 
