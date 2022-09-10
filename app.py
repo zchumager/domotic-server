@@ -55,44 +55,44 @@ def join2home():
     partial_mac = body.get('partial_mac', None)
     user = get_registered_device(partial_mac)
 
-    if user is None:
-        device_name = body.get('device_name', None)
-        email = body.get('email', None)
-        firstname = body.get('firstname', None)
-        lastname = body.get('lastname', None)
-
-        desired_temperature = body.get('desired_temperature', None)
-        medical_condition = body.get('medical_condition', None)
-        medical_condition_level = body.get('medical_condition_level', None)
-
-        registered_devices = get_registered_devices()
-
-        if not len(registered_devices):
-            role = "habitant"
-        else:
-            role = "visitor"
-
-        device = Device(
-            partial_mac=partial_mac,
-            device_name=device_name,
-            email=email,
-            firstname=firstname,
-            lastname=lastname,
-            role=role,
-            desired_temperature=desired_temperature,
-            medical_condition=medical_condition,
-            medical_condition_level=medical_condition_level
-        )
-
-        session.add(device)
-        session.commit()
-
-        if device.id is None:
-            return jsonify(msg="device could not be registered"), 403
-
-        return jsonify(body), 200
-    else:
+    if user is not None:
         return jsonify(msg="this is already registered"), 409
+
+    device_name = body.get('device_name', None)
+    email = body.get('email', None)
+    firstname = body.get('firstname', None)
+    lastname = body.get('lastname', None)
+
+    desired_temperature = body.get('desired_temperature', None)
+    medical_condition = body.get('medical_condition', None)
+    medical_condition_level = body.get('medical_condition_level', None)
+
+    registered_devices = get_registered_devices()
+
+    if not len(registered_devices):
+        role = "habitant"
+    else:
+        role = "visitor"
+
+    device = Device(
+        partial_mac=partial_mac,
+        device_name=device_name,
+        email=email,
+        firstname=firstname,
+        lastname=lastname,
+        role=role,
+        desired_temperature=desired_temperature,
+        medical_condition=medical_condition,
+        medical_condition_level=medical_condition_level
+    )
+
+    session.add(device)
+    session.commit()
+
+    if device.id is None:
+        return jsonify(msg="device could not be registered"), 403
+
+    return jsonify(body), 200
 
 
 @app.route("/connected_devices")
