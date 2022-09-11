@@ -65,7 +65,7 @@ def join2home():
 
     desired_temperature = body.get('desired_temperature', None)
     medical_condition = body.get('medical_condition', None)
-    medical_condition_level = body.get('medical_condition_level', None)
+    medical_condition_level = body.get('medical_condition_level', None) if medical_condition else ""
 
     registered_devices = get_registered_devices()
 
@@ -91,6 +91,28 @@ def join2home():
 
     if device.id is None:
         return jsonify(msg="device could not be registered"), 403
+
+    return jsonify(body), 200
+
+
+@app.route("/update_preferences", methods=["PATCH"])
+def update_preferences():
+    body = request.get_json()
+    partial_mac = body['partial_mac']
+
+    device = get_registered_device(partial_mac)
+
+    if device is None:
+        return jsonify(msg="device could be found"), 404
+
+    device.email = body.get('email', None)
+    device.firstname = body.get('firstname', None)
+    device.lastname = body.get('lastname', None)
+    device.desired_temperature = body.get('desired_temperature', None)
+    device.medical_condition = body.get('medical_condition', None)
+    device.medical_condition_level = body.get('medical_condition_level', None) if device.medical_condition else ""
+
+    session.commit()
 
     return jsonify(body), 200
 
