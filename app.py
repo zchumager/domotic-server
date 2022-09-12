@@ -96,7 +96,7 @@ def join2home():
     return jsonify(body), 200
 
 
-@app.route("/update_preferences", methods=["PATCH"])
+@app.route("/update_preferences", methods=["PUT"])
 @jwt_required()
 def update_preferences():
     body = request.get_json()
