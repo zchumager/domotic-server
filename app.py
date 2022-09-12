@@ -134,7 +134,7 @@ def device_info():
         'lastname': device.lastname,
         'desired_temperature': device.desired_temperature,
         'medical_condition': device.medical_condition,
-        'medical_condition_level': device.medical_condition
+        'medical_condition_level': device.medical_condition_level
     }
 
     return jsonify(info), 200
