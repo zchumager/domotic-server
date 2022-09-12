@@ -121,8 +121,10 @@ def update_preferences():
 
 @app.route("/device_info")
 def device_info():
-    body = request.get_json()
-    partial_mac = body.get('partial_mac', None)
+    partial_mac = request.args.get('partial_mac', "")
+
+    partial_mac = partial_mac.replace('"', '')
+
     device = get_registered_device(partial_mac)
 
     if device is None:
