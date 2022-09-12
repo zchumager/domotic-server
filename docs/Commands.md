@@ -8,7 +8,7 @@
 > source venv/bin/active
 
 ### Install dependencies as sudo
-> sudo python -m pip install -r requirements.txt
+> python -m pip install -r requirements.txt
 
 ### Run CLI in venv
 > sudo python cli.py --devices

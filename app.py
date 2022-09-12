@@ -44,7 +44,7 @@ def login():
 
     if registered_device.role == "visitor":
         access_token = create_access_token(identity=registered_device.role)
-        return jsonify(access_token=access_token), 401
+        return jsonify(access_token=access_token), 203
 
     access_token = create_access_token(identity=partial_mac)
     return jsonify(access_token=access_token), 200

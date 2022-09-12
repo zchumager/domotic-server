@@ -8,10 +8,7 @@
 > source venv/bin/activate
 
 ### Install dependencies
-> sudo python -m pip install -r requirements.txt
-
-### for installing a new dependency
-> sudo python -m pip install
+> python -m pip install -r requirements.txt
 
 ### Run CLI in venv
 > sudo python cli.py --devices
