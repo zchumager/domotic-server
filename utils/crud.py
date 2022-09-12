@@ -14,8 +14,8 @@ def get_registered_device(partial_mac):
 
 
 def get_active_devices(macs):
-    activive_users = session.query(Device).filter(Device.partial_mac.in_(macs)).all()
-    return activive_users
+    active_devices = session.query(Device).filter(Device.partial_mac.in_(macs)).all()
+    return active_devices
 
 
 def update_preferences(body):

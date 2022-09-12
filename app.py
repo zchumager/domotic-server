@@ -120,7 +120,6 @@ def update_preferences():
 
 
 @app.route("/device_info")
-@jwt_required()
 def device_info():
     body = request.get_json()
     partial_mac = body.get('partial_mac', None)
@@ -130,7 +129,6 @@ def device_info():
         return jsonify(msg='bad request not registered device'), 409
 
     info = {
-        'partial_mac': device.partial_mac,
         'email': device.email,
         'firstname': device.firstname,
         'lastname': device.lastname,
