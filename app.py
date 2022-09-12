@@ -1,11 +1,11 @@
 import os
 
 from flask import Flask, send_from_directory, jsonify, request
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 from utils.network import get_connected_devices
 from utils.crud import get_registered_device, get_registered_devices
-from utils.models import session, Device
+from utils.models import session, Device, device_schema
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -43,7 +43,8 @@ def login():
         return jsonify(msg='bad request not registered device'), 409
 
     if registered_device.role == "visitor":
-        return jsonify(msg='a visitor cannot an access token'), 403
+        access_token = create_access_token(identity=registered_device.role)
+        return jsonify(access_token=access_token), 401
 
     access_token = create_access_token(identity=partial_mac)
     return jsonify(access_token=access_token), 200
@@ -96,9 +97,10 @@ def join2home():
 
 
 @app.route("/update_preferences", methods=["PATCH"])
+@jwt_required()
 def update_preferences():
     body = request.get_json()
-    partial_mac = body['partial_mac']
+    partial_mac = body.get('partial_mac', None)
 
     device = get_registered_device(partial_mac)
 
@@ -114,12 +116,40 @@ def update_preferences():
 
     session.commit()
 
-    return jsonify(body), 200
+    return jsonify(body), 201
+
+
+@app.route("/device_info")
+@jwt_required()
+def device_info():
+    body = request.get_json()
+    partial_mac = body.get('partial_mac', None)
+    device = get_registered_device(partial_mac)
+
+    if device is None:
+        return jsonify(msg='bad request not registered device'), 409
+
+    info = {
+        'partial_mac': device.partial_mac,
+        'email': device.email,
+        'firstname': device.firstname,
+        'lastname': device.lastname,
+        'desired_temperature': device.desired_temperature,
+        'medical_condition': device.medical_condition,
+        'medical_condition_level': device.medical_condition
+    }
+
+    return jsonify(info), 200
 
 
 @app.route("/connected_devices")
 @jwt_required()
 def connected_devices():
+    identity = get_jwt_identity()
+
+    if identity == 'visitor':
+        return jsonify(msg="any visitor cannot list devices"), 401
+
     return jsonify(get_connected_devices()), 200
 
 
