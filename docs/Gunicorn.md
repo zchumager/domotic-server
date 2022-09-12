@@ -8,4 +8,4 @@
 > sudo python -m pip install gunicorn
 
 ### Run RESTful API Server in guinicorn
-> sudo guinicorn --workers 10 --bind=0.0.0.0:5000 wsgi:app
+> sudo venv/bin/gunicorn --workers 10 --bind=0.0.0.0:5000 wsgi:app
