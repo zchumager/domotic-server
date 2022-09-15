@@ -99,6 +99,32 @@ def join2home():
     return jsonify(body), 200
 
 
+@app.route("/join2family", methods=["POST"])
+@jwt_required()
+def join2family():
+    body = request.get_json()
+
+    habitant_partial_mac = body.get('habitant_partial_mac', None)
+    visitor_partial_mac = body.get('visitor_partial_mac', None)
+
+    if habitant_partial_mac is None or visitor_partial_mac is None:
+        return jsonify(msg="bad Request for joining to the family"), 400
+
+    identy = get_jwt_identity()
+
+    if identy == "visitor":
+        return jsonify(msg="forbiden service for visitors"), 403
+
+    habitant_device = get_registered_device(habitant_partial_mac)
+
+    if habitant_device is None:
+        return jsonify(msg='bad request habitant not registered'), 404
+
+    new_role = update_role(visitor_partial_mac, habitant_device.role)
+
+    return jsonify(msg=f"role updated to {new_role}")
+
+
 @app.route("/device_info")
 def device_info():
     partial_mac = request.args.get('partial_mac', "")
@@ -145,27 +171,6 @@ def update_preferences():
     session.commit()
 
     return jsonify(body), 201
-
-
-@app.route("/join2family", methods=["POST"])
-@jwt_required()
-def join2family():
-    body = request.get_json()
-
-    habitant_partial_mac = body.get('habitant_partial_mac', None)
-    visitor_partial_mac = body.get('visitor_partial_mac', None)
-
-    if habitant_partial_mac is None or visitor_partial_mac is None:
-        return jsonify(msg="bad Request for joining to the family"), 400
-
-    habitant_device = get_registered_device(habitant_partial_mac)
-
-    if habitant_device is None:
-        return jsonify(msg='bad request habitant not registered'), 404
-
-    new_role = update_role(visitor_partial_mac, habitant_device.role)
-
-    return jsonify(msg=f"role updated to {new_role}")
 
 
 @app.route("/connected_devices")
