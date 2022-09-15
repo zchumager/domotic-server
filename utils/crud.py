@@ -18,5 +18,8 @@ def get_active_devices(macs):
     return active_devices
 
 
-def update_preferences(body):
-    pass
+def update_role(partial_mac, role):
+    device = get_registered_device(partial_mac)
+    device.role = role
+    return device.role
+

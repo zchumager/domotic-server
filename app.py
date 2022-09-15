@@ -4,8 +4,8 @@ from flask import Flask, send_from_directory, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 from utils.network import get_connected_devices
-from utils.crud import get_registered_device, get_registered_devices
-from utils.models import session, Device, device_schema
+from utils.crud import get_registered_device, get_registered_devices, update_role
+from utils.models import session, Device
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -40,7 +40,7 @@ def login():
     registered_device = get_registered_device(partial_mac)
 
     if registered_device is None:
-        return jsonify(msg='bad request not registered device'), 409
+        return jsonify(msg='bad request not registered device'), 404
 
     if registered_device.role == "visitor":
         access_token = create_access_token(identity=registered_device.role)
@@ -54,9 +54,12 @@ def login():
 def join2home():
     body = request.get_json()
     partial_mac = body.get('partial_mac', None)
-    user = get_registered_device(partial_mac)
+    if partial_mac is None:
+        return jsonify(msg="bad Request for joining to the family"), 400
 
-    if user is not None:
+    registered_device = get_registered_device(partial_mac)
+
+    if registered_device is not None:
         return jsonify(msg="this is already registered"), 409
 
     device_name = body.get('device_name', None)
@@ -96,16 +99,41 @@ def join2home():
     return jsonify(body), 200
 
 
+@app.route("/device_info")
+def device_info():
+    partial_mac = request.args.get('partial_mac', "")
+
+    partial_mac = partial_mac.replace('"', '')
+
+    registered_device = get_registered_device(partial_mac)
+
+    if registered_device is None:
+        return jsonify(msg='bad request not registered device'), 404
+
+    info = {
+        'email': registered_device.email,
+        'firstname': registered_device.firstname,
+        'lastname': registered_device.lastname,
+        'desired_temperature': registered_device.desired_temperature,
+        'medical_condition': registered_device.medical_condition,
+        'medical_condition_level': registered_device.medical_condition_level
+    }
+
+    return jsonify(info), 200
+
+
 @app.route("/update_preferences", methods=["PUT"])
 @jwt_required()
 def update_preferences():
     body = request.get_json()
     partial_mac = body.get('partial_mac', None)
+    if partial_mac is None:
+        return jsonify(msg="bad Request for joining to the family"), 400
 
     device = get_registered_device(partial_mac)
 
     if device is None:
-        return jsonify(msg="device could be found"), 404
+        return jsonify(msg='bad request not registered device'), 404
 
     device.email = body.get('email', None)
     device.firstname = body.get('firstname', None)
@@ -119,27 +147,25 @@ def update_preferences():
     return jsonify(body), 201
 
 
-@app.route("/device_info")
-def device_info():
-    partial_mac = request.args.get('partial_mac', "")
+@app.route("/join2family", methods=["POST"])
+@jwt_required()
+def join2family():
+    body = request.get_json()
 
-    partial_mac = partial_mac.replace('"', '')
+    habitant_partial_mac = body.get('habitant_partial_mac', None)
+    visitor_partial_mac = body.get('visitor_partial_mac', None)
 
-    device = get_registered_device(partial_mac)
+    if habitant_partial_mac is None or visitor_partial_mac is None:
+        return jsonify(msg="bad Request for joining to the family"), 400
 
-    if device is None:
-        return jsonify(msg='bad request not registered device'), 409
+    habitant_device = get_registered_device(habitant_partial_mac)
 
-    info = {
-        'email': device.email,
-        'firstname': device.firstname,
-        'lastname': device.lastname,
-        'desired_temperature': device.desired_temperature,
-        'medical_condition': device.medical_condition,
-        'medical_condition_level': device.medical_condition_level
-    }
+    if habitant_device is None:
+        return jsonify(msg='bad request habitant not registered'), 404
 
-    return jsonify(info), 200
+    new_role = update_role(visitor_partial_mac, habitant_device.role)
+
+    return jsonify(msg=f"role updated to {new_role}")
 
 
 @app.route("/connected_devices")
