@@ -2,13 +2,13 @@
 > cd /home/admin/Repos/domotic-server
 
 ### Create venv
-> python -m venv venv
+> sudo python -m venv venv
 
 ### Activate venv (Linux)
 > source venv/bin/activate
 
 ### Install dependencies
-> python -m pip install -r requirements.txt
+> sudo python -m pip install -r requirements.txt
 
 ### Run CLI in venv
 > sudo python cli.py --devices

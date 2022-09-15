@@ -21,5 +21,7 @@ def get_active_devices(macs):
 def update_role(partial_mac, role):
     device = get_registered_device(partial_mac)
     device.role = role
+    session.commit()
+
     return device.role
 
