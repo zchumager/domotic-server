@@ -2,21 +2,21 @@
 > cd /home/admin/Repos/domotic-server
 
 ### Create venv
-> sudo python -m venv venv
+> python -m venv venv
 
 ### Activate venv (Linux)
 > source venv/bin/activate
 
-### Install dependencies
-> sudo python -m pip install -r requirements.txt
+### Install dependencies in venv
+> (venv) python -m pip install -r requirements.txt
 
-### Run CLI in venv
+### Run CLI 
 > sudo python cli.py --devices
 
-### Run Web API in venv
+### Run Web API (sudo is required because of nmap)
 > sudo python -m venv/bin/flask run --host=0.0.0.0
 OR
 > sudo python app.py
 
-### Run gunicorn in venv
+### Run gunicorn (sudo is required because of nmap)
 > sudo venv/bin/gunicorn --workers 10 --bind=0.0.0.0:5000 wsgi:app
