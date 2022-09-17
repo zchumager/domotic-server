@@ -1,6 +1,8 @@
 from functools import reduce
 from operator import add, mul
 
+import config
+
 
 def get_weight_from_device(device):
     if device.role == 'visitor':
@@ -35,6 +37,7 @@ def basic(data, weights):
 
 
 def execute(model, active_devices):
+
     temperatures = []
     weights = []
 
@@ -45,4 +48,4 @@ def execute(model, active_devices):
     if model == "basic":
         print("Calculating temperature with basic model")
 
-        basic(temperatures, weights)
+        return basic(temperatures, weights)
