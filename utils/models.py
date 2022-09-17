@@ -7,7 +7,7 @@ from marshmallow_sqlalchemy import SQLAlchemySchema
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 db_file = os.path.join(base_dir, 'app.db')
-engine = create_engine(f"sqlite:///{db_file}")
+engine = create_engine(f"sqlite:///{db_file}", connect_args={'check_same_thread': False})
 
 session = scoped_session(sessionmaker(bind=engine))
 Orm = declarative_base()
