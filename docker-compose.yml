@@ -4,7 +4,7 @@ services:
     container_name: homeassistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
     volumes:
-      - ./docker/volumes/config
+      - /home/admin/Repos/domotic-server/docker/volumes/config
       - /etc/localtime:/etc/localtime:ro
     restart: unless-stopped
     privileged: true
