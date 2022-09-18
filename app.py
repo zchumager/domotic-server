@@ -3,9 +3,10 @@ import os
 from flask import Flask, send_from_directory, jsonify, request
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
-from utils.network import get_connected_devices
 from utils.crud import get_registered_device, get_registered_devices, update_role
 from utils.models import session, Device
+from utils.network import get_connected_devices
+from cronjob import wait_for_connected_devices
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -180,9 +181,22 @@ def connected_devices():
     identity = get_jwt_identity()
 
     if identity == 'visitor':
-        return jsonify(msg="any visitor cannot list devices"), 401
+        return jsonify(msg="any visitor cannot list connected devices"), 401
 
     return jsonify(get_connected_devices()), 200
+
+
+@app.route("/active_devices")
+@jwt_required()
+def active_devices():
+    identity = get_jwt_identity()
+
+    if identity == 'visitor':
+        return jsonify(msg="any visitor cannot list active devices"), 401
+
+    active_devices_macs, _ = wait_for_connected_devices()
+
+    return jsonify(active_devices_macs), 200
 
 
 @app.teardown_request

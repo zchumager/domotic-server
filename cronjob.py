@@ -47,7 +47,7 @@ def get_active_devices_info():
     return active_devices_macs, active_devices
 
 
-def wait_for_timeout(fn=get_active_devices_info, seconds_timeout=30):
+def wait_for_connected_devices(fn=get_active_devices_info, seconds_timeout=30):
     """""
     this function was done to mitigate wifi intermitences
     """""
@@ -71,7 +71,7 @@ def job():
     active_devices_mac list is used to write active_devices.log file and
     active_devices list is used to change the temperature
     '''
-    active_devices_macs, active_devices = wait_for_timeout()
+    active_devices_macs, active_devices = wait_for_connected_devices()
 
     logfile = logfile_path()
     update_log = False
