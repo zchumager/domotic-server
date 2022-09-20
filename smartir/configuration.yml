@@ -1,14 +1,13 @@
 smartir:
 
+switch:
+  - platform: broadlink
+    host: 192.168.1.11
+    mac: '24:DF:A7:4F:D6:9E'
+
 climate:
   - platform: smartir
     name: Mini Split
     unique_id: mini_split
     device_code: 2100
     controller_data: 192.168.1.11
-
-switch:
-  - platform: broadlink
-    host: 192.168.1.11
-    mac: '24:DF:A7:4F:D6:9E'
-    type: rm4_mini
