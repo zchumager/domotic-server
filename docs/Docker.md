@@ -11,5 +11,5 @@ download homeassistant docker's image
 check docker compose installation
 > docker compose version
 
-
+run container as daemon with docker compose
 > sudo docker compose up -d
