@@ -1,0 +1,381 @@
+{
+	"info": {
+		"_postman_id": "03b0382d-a6b1-49a8-8814-f4257635d229",
+		"name": "Raspberry-Home-Assistant",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13947266"
+	},
+	"item": [
+		{
+			"name": "raspberry hassio api",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api  config",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/config",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api config entry",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/config/config_entries/entry",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"config",
+						"config_entries",
+						"entry"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api events",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/events",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api services",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/services",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api services climate turn on",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"entity_id\": \"climate.air_conditioner_studio\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/services/climate/turn_on",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"services",
+						"climate",
+						"turn_on"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api services climate turn off",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"entity_id\": \"climate.air_conditioner_studio\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/services/climate/turn_off",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"services",
+						"climate",
+						"turn_off"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api services climate set_temperature",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"entity_id\": \"climate.air_conditioner_studio\",\n\t\"temperature\": 23,\n\t\"target_temp_high\": 26,\n\t\"target_temp_low\": 20,\n\t\"hvac_mode\": \"cool\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/services/climate/set_temperature",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"services",
+						"climate",
+						"set_temperature"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api states",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/states",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"states"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api states climate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/states/climate.air_conditioner_studio",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"states",
+						"climate.air_conditioner_studio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raspberry hassio api  components",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HASSIO_URL}}/api/components",
+					"host": [
+						"{{HASSIO_URL}}"
+					],
+					"path": [
+						"api",
+						"components"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
