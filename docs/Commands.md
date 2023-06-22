@@ -21,5 +21,8 @@ OR
 ### Run gunicorn in venv
 > sudo venv/bin/gunicorn --workers 10 --bind=0.0.0.0:5000 wsgi:app
 
+### Restart bash terminal
+> exec $SHELL
+
 ### Restart Raspberry
 > sudo reboot now
