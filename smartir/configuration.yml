@@ -1,13 +1,10 @@
-smartir:
+# put below Home Assistant existing configuration in container/configuration.yml
 
-switch:
-  - platform: broadlink
-    host: 192.168.1.11
-    mac: '24:DF:A7:4F:D6:9E'
+smartir:
 
 climate:
   - platform: smartir
-    name: Mini Split
-    unique_id: mini_split
+    name: <Name of the device defined in the app>
+    unique_id: <name_of_the_device_defined_in_the_app_separated_by_underscore>
     device_code: 2100
-    controller_data: 192.168.1.11
+    controller_data: remote.zhi_neng_yao_kong
