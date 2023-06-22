@@ -8,3 +8,6 @@ climate:
     unique_id: <name_of_the_device_defined_in_the_app_separated_by_underscore>
     device_code: 2100
     controller_data: remote.zhi_neng_yao_kong
+
+
+# For further information visit https://github.com/smartHomeHub/SmartIR/blob/master/docs/CLIMATE.md
