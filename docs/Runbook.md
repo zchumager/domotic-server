@@ -27,5 +27,8 @@ OR
 ### Run gunicorn (sudo is required because of nmap) detached
 > sudo venv/bin/gunicorn --workers 10 --bind=0.0.0.0:5000 wsgi:app --daemon
 
+### Kill detached gunicorn if needed
+> sudo pkil gunicorn
+
 ### Run python cronjob script
 > python cronjob.py
