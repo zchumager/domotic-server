@@ -1,7 +1,6 @@
 update package manager
 > sudo apt-get update
 
-
 install docker
 > sudo shellscripts/get.docker.sh
 
