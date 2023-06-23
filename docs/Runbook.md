@@ -1,14 +1,17 @@
 ### open domotic-server directory
 > cd /home/admin/Repos/domotic-server
 
+### Run Home Assistant detached
+> sudo docker compose up -d
+
 ### Create venv
 > python -m venv venv
 
-### Activate venv (Linux)
-> source venv/bin/activate
-
 ### Install dependencies in venv
 > (venv) python -m pip install -r requirements.txt
+
+### Activate venv (Linux)
+> source venv/bin/activate
 
 ### Run CLI 
 > sudo python cli.py --devices
@@ -20,3 +23,9 @@ OR
 
 ### Run gunicorn (sudo is required because of nmap)
 > sudo venv/bin/gunicorn --workers 10 --bind=0.0.0.0:5000 wsgi:app
+
+### Run gunicorn (sudo is required because of nmap) detached
+> sudo venv/bin/gunicorn --workers 10 --bind=0.0.0.0:5000 wsgi:app --daemon
+
+### Run python cronjob script
+> python cronjob.py

@@ -1,5 +1,5 @@
 ### Scan network to get connected devices
-> sudo nmap -snP 192.168.1.8/24
+> sudo nmap -snP <raspberry.pi.ip.address>/24
 
 ### Create venv in domotic-server folder
 > python -m venv venv

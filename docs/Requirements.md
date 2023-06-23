@@ -21,7 +21,7 @@ Install nmap with apt
 > sudo apt install nmap -y
 
 Scan network with nmap
-> sudo nmap <raspberry.pi.ip.address> -snP
+> sudo nmap -snP <raspberry.pi.ip.address>/24
 
 Create venv on domotic server root folder
 > python -m venv venv
