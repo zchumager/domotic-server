@@ -7,14 +7,14 @@
 ### Create venv
 > python -m venv venv
 
-### Install dependencies in venv
-> (venv) python -m pip install -r requirements.txt
-
 ### Activate venv (Linux)
 > source venv/bin/activate
 
+### Install dependencies in venv 
+> python -m pip install -r requirements.txt
+
 ### Run CLI 
-> sudo python cli.py --devices
+> python cli.py --devices
 
 ### Run Web API (sudo is required because of nmap)
 > sudo python -m venv/bin/flask run --host=0.0.0.0
@@ -31,4 +31,4 @@ OR
 > sudo pkil gunicorn
 
 ### Run python cronjob script
-> python cronjob.py
+> sudo python cronjob.py

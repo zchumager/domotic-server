@@ -7,23 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "index",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{API_URL}}/",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "about",
 			"request": {
 				"method": "GET",
