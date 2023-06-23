@@ -5,7 +5,7 @@ import socket
 
 def get_server_ip():
     hostname = socket.gethostname()
-    print(hostname)
+    print(f'hostname: {hostname}')
     ip = socket.gethostbyname(hostname + ".local")
     return ip
 
