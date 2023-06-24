@@ -4,10 +4,10 @@ import socket
 
 
 def get_server_ip():
-    hostname = socket.gethostname()
-    print(f'hostname: {hostname}')
-    ip = socket.gethostbyname(hostname + ".local")
-    return ip
+    skt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    skt.connect(("8.8.8.8", 80))
+
+    return skt.getsockname()[0]
 
 
 def get_connected_devices():
