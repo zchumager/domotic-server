@@ -1,14 +1,14 @@
 import json
 import threading
 import os
-import time
+import config
 
 from datetime import datetime, timedelta
 
 from utils.network import get_connected_devices
 from utils.models import session
 from utils.crud import get_registered_devices, get_active_devices
-from utils.climate import change_temperature
+from utils.climate import calculate_with_model, change_temperature
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -46,7 +46,7 @@ def job():
     active_devices_mac list is used to write active_devices.log file and
     active_devices list is used to change the temperature
     '''
-    active_devices_macs, active_devices = wait_for_connected_devices()
+    registered_connected = wait_for_connected_devices()
 
     logfile = logfile_path()
     update_log = False
@@ -55,27 +55,31 @@ def job():
     if not os.path.exists(logfile):
         print("Creating active devices log file for cronjob")
         with open(logfile, 'w') as log:
-            json.dump(active_devices_macs, log)
+            json.dump(registered_connected, log)
 
     # checks if the active devices in network have changed
     print("Reading active devices log")
     with open(logfile, 'r') as log:
         macs_in_file = json.loads(log.readline())
-        if macs_in_file != active_devices_macs:
+        if macs_in_file != registered_connected:
             print("Devices list have change")
             update_log = True
-
         else:
             print("there are not new devices from previous scan")
 
     # updates the log file
     if update_log:
         with open(logfile, 'w') as log:
-            json.dump(active_devices_macs, log)
+            json.dump(registered_connected, log)
 
-            if len(active_devices_macs) > 0:
-                new_temperature = change_temperature(active_devices)
-                print(f"The new temperature is {new_temperature}")
+            if len(registered_connected) > 0:
+                new_temperature = calculate_with_model(get_active_devices(registered_connected), model=config.climate_model)
+                response = change_temperature(new_temperature)
+
+                if response.ok:
+                    print(f"The new temperature is {new_temperature}")
+                else:
+                    print("The temperature could not be modified")
 
     session.remove()
 

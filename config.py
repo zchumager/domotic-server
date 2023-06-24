@@ -1,1 +1,3 @@
+access_token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiOWE1NTg1OWM1MTg0ZDEzOGRhYjhkY2VkM2ZhZTdjNSIsImlhdCI6MTY4NzQ0ODU0MywiZXhwIjoyMDAyODA4NTQzfQ.WOyWjyeyLSMBtWlMeoapOjXDPfBsOI4yBvN2TEDoLNU"
 climate_model = "basic"
+raspberry_ip = "http://raspberrypi.local:8123"

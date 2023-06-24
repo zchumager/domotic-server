@@ -1,5 +1,6 @@
 import config
 from utils import climate_model
+from requests import post
 
 
 def get_weight_from_device(device):
@@ -25,7 +26,9 @@ def get_weight_from_device(device):
                 return 9
 
 
-def change_with_model(active_devices, model=config.climate_model):
+def calculate_with_model(active_devices, model):
+    print("Changing Temperature")
+
     temperatures = []
     weights = []
 
@@ -39,9 +42,20 @@ def change_with_model(active_devices, model=config.climate_model):
         return climate_model.basic(temperatures, weights)
 
 
-def change_temperature(active_devices):
-    print("Changing Temperature")
+def change_temperature(temperature):
+    headers = {
+        'Authorization': f'Bearer {config.access_token}'
+    }
 
-    return change_with_model(active_devices, model="basic")
+    body = {
+        "entity_id": "climate.air_conditioner_studio",
+        "temperature": temperature,
+        "target_temp_high": 26,
+        "target_temp_low": 20,
+        "hvac_mode": "cool"
+    }
 
+    hostname = config.raspberry_ip
+    endpoint = "/api/services/climate/set_temperature"
 
+    return post(f"{hostname}{endpoint}", json=body, headers=headers)

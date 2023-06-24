@@ -19,5 +19,5 @@ if __name__ == "__main__":
     if args.devices:
         pprint.pprint(get_connected_devices())
     if args.active_devices:
-        active_devices_macs, _ = wait_for_connected_devices()
-        pprint.pprint(active_devices_macs)
+        registered_connected = wait_for_connected_devices()
+        pprint.pprint(registered_connected)
