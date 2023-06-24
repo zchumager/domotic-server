@@ -10,13 +10,13 @@
 ### Install dependencies as sudo
 > python -m pip install -r requirements.txt
 
-### Run CLI in venv
-> sudo python cli.py --devices
+### Run CLI as sudo with venv
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --devices
 
-### Run Web API in venv
-> sudo python -m venv/bin/flask run --host=0.0.0.0
+### Run Web API (sudo is required because of nmap) with venv
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python -m flask run --host=0.0.0.0
 OR
-> sudo python app.py
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python app.py
 
 ### Run gunicorn in venv
 > sudo venv/bin/gunicorn --workers 10 --bind=0.0.0.0:5000 wsgi:app
