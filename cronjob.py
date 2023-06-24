@@ -17,51 +17,26 @@ def logfile_path():
     return os.path.join(base_dir, 'active_devices.log')
 
 
-def get_active_devices_macs():
-    """
-    :return: the list of mac_addresses in db that are currently active in the wifi
-    """
-
-    connected_devices = get_connected_devices()
-    registered_devices = get_registered_devices()
-
-    # getting connected devices from API
-    connected_devices_macs = [device[3:] for device in connected_devices]
-    registered_devices_macs = [device.partial_mac.upper() for device in registered_devices]
-
-    # intersection to get connected devices that has been registered
-    active_devices_macs = list(set(connected_devices_macs) & set(registered_devices_macs))
-
-    return active_devices_macs
-
-
-def get_active_devices_info():
-    """
-    returns the list of the active devices' mac address and
-    the list of devices in db that are currently active in the wifi
-    """
-
-    active_devices_macs = get_active_devices_macs()
-    active_devices = get_active_devices(active_devices_macs)
-
-    return active_devices_macs, active_devices
-
-
-def wait_for_connected_devices(fn=get_active_devices_info, seconds_timeout=30):
+def wait_for_connected_devices(seconds_timeout=30):
     """""
     this function was done to mitigate wifi intermitences
     """""
 
-    active_devices_macs, active_devices = fn()
+    registered_devices = [registered_device.partial_mac for registered_device in get_registered_devices()]
+    connected_devices = [device[3:] for device in get_connected_devices()]
 
-    stop_time = datetime.now() + timedelta(seconds=seconds_timeout)
+    # intersection to get connected devices that has been registered
+    registered_connected = get_active_devices(connected_devices)
+    timeout = datetime.now() + timedelta(seconds=seconds_timeout)
 
-    while len(active_devices) == 0 and datetime.now() <= stop_time:
-        time.sleep(seconds_timeout)
+    if not len(get_active_devices(connected_devices)):
+        while not len(registered_connected) and datetime.now() <= timeout:
+            connected_devices = [device[3:] for device in get_connected_devices()]
+            registered_connected = list(set(registered_devices) & set(connected_devices))
+    else:
+        registered_connected = list(set(registered_devices) & set(connected_devices))
 
-        active_devices_macs, active_devices = fn()
-
-    return active_devices_macs, active_devices
+    return registered_connected
 
 
 def job():

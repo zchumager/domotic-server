@@ -194,9 +194,9 @@ def active_devices():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot list active devices"), 401
 
-    active_devices_macs, _ = wait_for_connected_devices()
+    connected_devices_of_connected_devices = wait_for_connected_devices()
 
-    return jsonify(active_devices_macs), 200
+    return jsonify(connected_devices_of_connected_devices), 200
 
 
 @app.teardown_request
