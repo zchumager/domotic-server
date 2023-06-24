@@ -17,9 +17,9 @@ def logfile_path():
     return os.path.join(base_dir, 'active_devices.log')
 
 
-def wait_for_connected_devices(seconds_timeout=30):
+def wait_for_registered_connected_devices(seconds_timeout=30):
     """""
-    this function was done to mitigate wifi intermitences
+    Get devices in the network that are registered into utils/app.db
     """""
 
     registered_devices = [registered_device.partial_mac for registered_device in get_registered_devices()]
@@ -29,6 +29,10 @@ def wait_for_connected_devices(seconds_timeout=30):
     registered_connected = get_active_devices(connected_devices)
     timeout = datetime.now() + timedelta(seconds=seconds_timeout)
 
+    '''
+    timeout for mitigating WiFi intermitences 
+    to force finding registered devices that are connected to the network
+    '''
     if not len(get_active_devices(connected_devices)):
         while not len(registered_connected) and datetime.now() <= timeout:
             connected_devices = [device[3:] for device in get_connected_devices()]
@@ -46,7 +50,7 @@ def job():
     active_devices_mac list is used to write active_devices.log file and
     active_devices list is used to change the temperature
     '''
-    registered_connected = wait_for_connected_devices()
+    registered_connected = wait_for_registered_connected_devices()
 
     logfile = logfile_path()
     update_log = False

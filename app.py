@@ -6,7 +6,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from utils.crud import get_registered_device, get_registered_devices, update_role
 from utils.models import session, Device
 from utils.network import get_connected_devices
-from cronjob import wait_for_connected_devices
+from cronjob import wait_for_registered_connected_devices
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -194,7 +194,7 @@ def active_devices():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot list active devices"), 401
 
-    connected_devices_of_connected_devices = wait_for_connected_devices()
+    connected_devices_of_connected_devices = wait_for_registered_connected_devices()
 
     return jsonify(connected_devices_of_connected_devices), 200
 
