@@ -1,11 +1,11 @@
 import os
 
-from flask import Flask, send_from_directory, jsonify, request
+from flask import Flask, send_from_directory, jsonify, request, render_template
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
 from utils.crud import get_registered_device, get_registered_devices, update_role
 from utils.models import session, Device
-from utils.network import get_connected_devices
+from utils.network import get_connected_devices, get_server_ip
 from cronjob import wait_for_registered_connected_devices
 
 app = Flask(__name__)
@@ -19,7 +19,8 @@ static_folder = os.path.join(app.root_path, 'static')
 
 @app.route('/')
 def index():
-    return send_from_directory(static_folder, 'index.html')
+    ip = get_server_ip()
+    return render_template("index.html", ip_address=ip)
 
 
 @app.route('/favicon')
