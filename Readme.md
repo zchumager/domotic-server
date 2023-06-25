@@ -29,7 +29,7 @@
 > docker --version
 
 - Start Home Assistant using docker-compose.yml
-> docker compose up -d
+> sudo docker compose up -d
 
 ## Home Assistant configuration
 1- Navigate to http://localhost:8123/ in the raspberry or http://<raspberry.pi.ip.address>:8123/
