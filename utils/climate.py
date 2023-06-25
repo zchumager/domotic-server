@@ -48,7 +48,7 @@ def get_ac_state():
     }
 
     hostname = config.raspberry_ip
-    endpoint = "/api/states/climate.air_conditioner_studio"
+    endpoint = f"/api/states/{config.entity_id}"
 
     return get(f"{hostname}{endpoint}", headers=headers)
 
@@ -59,7 +59,7 @@ def change_temperature(temperature):
     }
 
     body = {
-        "entity_id": "climate.air_conditioner_studio",
+        "entity_id": f"{config.entity_id}",
         "temperature": temperature,
         "target_temp_high": 26,
         "target_temp_low": 20,
