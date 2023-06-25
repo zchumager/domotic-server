@@ -176,9 +176,9 @@ def update_preferences():
     return jsonify(body), 201
 
 
-@app.route("/connected_devices")
+@app.route("/all_devices")
 @jwt_required()
-def connected_devices():
+def all_devices():
     identity = get_jwt_identity()
 
     if identity == 'visitor':
@@ -187,9 +187,9 @@ def connected_devices():
     return jsonify(get_connected_devices()), 200
 
 
-@app.route("/active_devices")
+@app.route("/registered_devices")
 @jwt_required()
-def active_devices():
+def registered_devices():
     identity = get_jwt_identity()
 
     if identity == 'visitor':
