@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from utils.network import get_connected_devices
 from utils.models import session
 from utils.crud import get_registered_devices, get_active_devices
-from utils.climate import calculate_with_model, change_temperature
+from utils.climate import calculate_with_model, get_ac_state, change_temperature
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
 
@@ -77,13 +77,26 @@ def job():
             json.dump(registered_connected, log)
 
             if len(registered_connected) > 0:
-                new_temperature = calculate_with_model(get_active_devices(registered_connected), model=config.climate_model)
-                response = change_temperature(new_temperature)
+                desired_temperature = calculate_with_model(get_active_devices(registered_connected), model=config.climate_model)
+                response = change_temperature(desired_temperature)
 
                 if response.ok:
-                    print(f"The new temperature is {new_temperature}")
+                    print(f"The new temperature is {desired_temperature}")
                 else:
                     print("The temperature could not be modified")
+    else:
+        ac_state = get_ac_state()
+        desired_temperature = calculate_with_model(get_active_devices(registered_connected), model=config.climate_model)
+
+        current_temperature = ac_state.json()['attributes']['temperature']
+
+        if current_temperature != desired_temperature:
+            response = change_temperature(desired_temperature)
+
+            if response.ok:
+                print(f"The new temperature is {desired_temperature}")
+            else:
+                print("The temperature could not be modified")
 
     session.remove()
 

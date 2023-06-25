@@ -1,6 +1,6 @@
 import config
 from utils import climate_model
-from requests import post
+from requests import get, post
 
 
 def get_weight_from_device(device):
@@ -40,6 +40,17 @@ def calculate_with_model(active_devices, model):
         print("Calculating temperature with basic model")
 
         return climate_model.basic(temperatures, weights)
+
+
+def get_ac_state():
+    headers = {
+        'Authorization': f'Bearer {config.access_token}'
+    }
+
+    hostname = config.raspberry_ip
+    endpoint = "/api/states/climate.air_conditioner_studio"
+
+    return get(f"{hostname}{endpoint}", headers=headers)
 
 
 def change_temperature(temperature):
