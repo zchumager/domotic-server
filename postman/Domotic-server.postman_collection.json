@@ -180,7 +180,7 @@
 			"response": []
 		},
 		{
-			"name": "connected_devices",
+			"name": "all_devices",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -195,19 +195,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/connected_devices",
+					"raw": "{{API_URL}}/all_devices",
 					"host": [
 						"{{API_URL}}"
 					],
 					"path": [
-						"connected_devices"
+						"all_devices"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "active_devices",
+			"name": "registered_devices",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -222,12 +222,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/active_devices",
+					"raw": "{{API_URL}}/registered_devices",
 					"host": [
 						"{{API_URL}}"
 					],
 					"path": [
-						"active_devices"
+						"registered_devices"
 					]
 				}
 			},

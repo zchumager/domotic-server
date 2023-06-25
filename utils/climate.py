@@ -27,7 +27,7 @@ def get_weight_from_device(device):
 
 
 def calculate_with_model(active_devices, model):
-    print("Changing Temperature")
+    print("Calculating Temperature")
 
     temperatures = []
     weights = []
