@@ -9,5 +9,11 @@ climate:
     device_code: 2100
     controller_data: remote.zhi_neng_yao_kong
 
+# recomended value for name is Air Conditioner, so for unique_id is air_conditioner
+# which is being displayed as climate.air_conditioner in Home Assistant
+
+# for this POC the name used is Air conditioner studio
+# which is being displayed as climate.air_conditioner_studio in Home Assistant
+# so unique_id defined in container/config/configuration.yaml is air_conditioner_studio
 
 # For further information visit https://github.com/smartHomeHub/SmartIR/blob/master/docs/CLIMATE.md
