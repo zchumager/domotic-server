@@ -19,6 +19,9 @@
 ### Run CLI as sudo with venv to get registered network devices
 > sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --registered_devices
 
+### Run python cronjob script as sudo for single execution with venv
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cronjob.py
+
 ### Run Web API (sudo is required because of nmap) with venv
 > sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python -m flask run --host=0.0.0.0
 OR
@@ -32,6 +35,3 @@ OR
 
 ### Kill detached gunicorn if needed
 > sudo pkill gunicorn
-
-### Run python cronjob script as sudo for single execution with venv
-> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cronjob.py
