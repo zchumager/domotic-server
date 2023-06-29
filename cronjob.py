@@ -84,19 +84,25 @@ def job():
                     print(f"The new temperature is {desired_temperature}")
                 else:
                     print("The temperature could not be modified")
-    else:
-        ac_state = get_ac_state()
-        desired_temperature = calculate_with_model(get_active_devices(registered_connected), model=config.climate_model)
-
-        current_temperature = ac_state.json()['attributes']['temperature']
-
-        if current_temperature != desired_temperature:
-            response = change_temperature(desired_temperature)
-
-            if response.ok:
-                print(f"The new temperature is {desired_temperature}")
             else:
-                print("The temperature could not be modified")
+                print("There are no users connected")
+    else:
+        if len(registered_connected) > 0:
+            ac_state = get_ac_state()
+            desired_temperature = calculate_with_model(get_active_devices(registered_connected),
+                                                       model=config.climate_model)
+
+            current_temperature = ac_state.json()['attributes']['temperature']
+
+            if current_temperature != desired_temperature:
+                response = change_temperature(desired_temperature)
+
+                if response.ok:
+                    print(f"The new temperature is {desired_temperature}")
+                else:
+                    print("The temperature could not be modified")
+        else:
+            print("There are no users connected")
 
     session.remove()
 
