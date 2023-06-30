@@ -28,4 +28,4 @@ if __name__ == "__main__":
     if args.crontab:
         pprint.pprint(activate_cronjob())
     if args.quitcron:
-        deactivate_cronjob()
+        pprint.pprint(deactivate_cronjob())
