@@ -1,7 +1,7 @@
 import argparse
 import pprint
 from utils.network import get_connected_devices
-from cronjob import wait_for_registered_connected_devices
+from cronjob import wait_for_registered_connected_devices, activate_cronjob, deactivate_cronjob
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Server Command Line Interface")
@@ -14,6 +14,10 @@ if __name__ == "__main__":
                         help="List of the Mac Addresses of connected devices that are registered in the DB",
                         action="store_true")
 
+    parser.add_argument('-c', '--crontab', help="activate crontab", action="store_true")
+
+    parser.add_argument('-q', '--quitcron', help="deactivate crontab", action="store_true")
+
     args = parser.parse_args()
 
     if args.all_devices:
@@ -21,3 +25,7 @@ if __name__ == "__main__":
     if args.registered_devices:
         registered_connected = wait_for_registered_connected_devices()
         pprint.pprint(registered_connected)
+    if args.crontab:
+        pprint.pprint(activate_cronjob())
+    if args.quitcron:
+        deactivate_cronjob()
