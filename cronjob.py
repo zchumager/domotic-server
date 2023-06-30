@@ -108,13 +108,14 @@ def job():
 
 
 def deactivate_cronjob():
-    os.popen('sudo crontab -l | sed "/^[^#].*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^/#" | sudo crontab -').close()
+    os.popen('sudo crontab -l | sed "/^[^#].*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^/#/" | sudo crontab -').close()
     return "cronjob activated"
 
 
 def activate_cronjob():
     os.popen('sudo crontab -l | sed "/^#.*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^#//" | sudo crontab -').close()
-    return "cronjob deactivated"
+    return "cronjob activated"
+
 
 if __name__ == "__main__":
     t = threading.Thread(target=job)
