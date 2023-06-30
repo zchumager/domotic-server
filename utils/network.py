@@ -1,6 +1,9 @@
 import platform
 import nmap
 import socket
+import pprint
+
+from xml.etree.ElementTree import ParseError
 
 
 def get_server_ip():
@@ -12,7 +15,7 @@ def get_server_ip():
 
 def get_connected_devices():
     print("Getting Connected Devices")
-    
+
     server_ip = get_server_ip()
     print(f'Server IP: {server_ip}')
     network_segment = f'{server_ip}/24'
@@ -23,11 +26,17 @@ def get_connected_devices():
     elif platform.system() == 'Linux':
         nm_scanner = nmap.PortScanner()
 
-    network = nm_scanner.scan(network_segment, arguments='-snP')
-    connected_devices = network['scan']
-    
-    mac_addresses = [device[1].get('addresses').get('mac')
-                     for device in connected_devices.items()
-                     if device[1].get('addresses').get('mac') is not None]
+    mac_addresses = []
+    try:
+        network = nm_scanner.scan(network_segment, arguments='-snP')
+        connected_devices = network['scan']
+
+        mac_addresses = [
+            device[1].get('addresses').get('mac')
+            for device in connected_devices.items()
+            if device[1].get('addresses').get('mac') is not None
+        ]
+    except ParseError as e:
+        pprint.pprint(e.msg)
 
     return mac_addresses
