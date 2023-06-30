@@ -17,7 +17,7 @@
 > sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --all_devices
 
 ### Run CLI as sudo with venv to get registered network devices
-> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --registered_devices
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --registered_connected
 
 ### Run python cronjob script as sudo for single execution with venv
 > sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cronjob.py
@@ -35,3 +35,10 @@ OR
 
 ### Kill detached gunicorn if needed
 > sudo pkill gunicorn
+
+
+### Enable cronjob in crontab
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py--crontab
+
+### Disable cronjob in crontab
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py--quitcron

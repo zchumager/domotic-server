@@ -6,7 +6,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from utils.crud import get_registered_device, get_registered_devices, update_role
 from utils.models import session, Device
 from utils.network import get_connected_devices, get_server_ip
-from cronjob import wait_for_registered_connected_devices
+from cronjob import wait_for_registered_connected_devices, activate_cronjob, deactivate_cronjob
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -198,6 +198,28 @@ def registered_connected():
     connected_devices_of_connected_devices = wait_for_registered_connected_devices()
 
     return jsonify(connected_devices_of_connected_devices), 200
+
+
+@app.route("/crontab")
+@jwt_required()
+def enable_crontab():
+    identity = get_jwt_identity()
+
+    if identity == 'visitor':
+        return jsonify(msg="any visitor cannot activate crontab"), 401
+
+    return activate_cronjob()
+
+
+@app.route("/quitcron")
+@jwt_required()
+def deactivate_crontab():
+    identity = get_jwt_identity()
+
+    if identity == 'visitor':
+        return jsonify(msg="any visitor cannot deactivate crontab"), 401
+
+    return deactivate_cronjob()
 
 
 @app.teardown_request
