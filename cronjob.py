@@ -109,7 +109,7 @@ def job():
 
 def deactivate_cronjob():
     os.popen('sudo crontab -l | sed "/^[^#].*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^/#/" | sudo crontab -').close()
-    return "cronjob activated"
+    return "cronjob deactivated"
 
 
 def activate_cronjob():
