@@ -187,9 +187,9 @@ def all_devices():
     return jsonify(get_connected_devices()), 200
 
 
-@app.route("/registered_devices")
+@app.route("/registered_connected")
 @jwt_required()
-def registered_devices():
+def registered_connected():
     identity = get_jwt_identity()
 
     if identity == 'visitor':

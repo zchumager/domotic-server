@@ -21,8 +21,8 @@ Note: There is no need to reboot Raspberry Pi
 # Activate cronjob.py execution in crontab
 > sudo crontab -l | sed "/^#.*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^#//" | sudo crontab -
 
-
 # Verify cron service status is active (running)
 > sudo systemctl status cron
 
-
+# Remove crontab to be recreated with crontab -e
+> sudo crontab -r

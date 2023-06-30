@@ -10,7 +10,7 @@ if __name__ == "__main__":
                         help="List the MAC Addresses of network's connected devices",
                         action="store_true")
 
-    parser.add_argument('-r', '--registered_devices',
+    parser.add_argument('-r', '--registered_connected',
                         help="List of the Mac Addresses of connected devices that are registered in the DB",
                         action="store_true")
 
@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     if args.all_devices:
         pprint.pprint(get_connected_devices())
-    if args.registered_devices:
+    if args.registered_connected:
         registered_connected = wait_for_registered_connected_devices()
         pprint.pprint(registered_connected)
     if args.crontab:
