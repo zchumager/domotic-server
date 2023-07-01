@@ -19,14 +19,17 @@ def get_connected_devices():
     server_ip = get_server_ip()
     print(f'Server IP: {server_ip}')
     network_segment = f'{server_ip}/24'
-
-    if platform.system() == 'Windows':
-        nmap_path = [r"C:\Program Files (x86)\Nmap\nmap.exe"]
-        nm_scanner = nmap.PortScanner(nmap_search_path=nmap_path)
-    elif platform.system() == 'Linux':
-        nm_scanner = nmap.PortScanner()
-
     mac_addresses = []
+
+    try:
+        if platform.system() == 'Windows':
+            nmap_path = [r"C:\Program Files (x86)\Nmap\nmap.exe"]
+            nm_scanner = nmap.PortScanner(nmap_search_path=nmap_path)
+        elif platform.system() == 'Linux':
+            nm_scanner = nmap.PortScanner()
+    except nmap.PortScannerError:
+        pass
+
     try:
         network = nm_scanner.scan(network_segment, arguments='-snP')
         connected_devices = network['scan']
