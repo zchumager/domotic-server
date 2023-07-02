@@ -107,6 +107,13 @@ def job():
     session.remove()
 
 
+def get_cronjob():
+    execution = os.popen('crontab -l | grep cronjob.py')
+    output = execution.read()
+    execution.close()
+    return output
+
+
 def deactivate_cronjob():
     os.popen('sudo crontab -l | sed "/^[^#].*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^/#/" | sudo crontab -').close()
     return "cronjob deactivated"
