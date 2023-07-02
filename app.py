@@ -219,7 +219,7 @@ def deactivate_crontab():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot deactivate crontab"), 401
 
-    return jsonify(msg=deactivate_cronjob()), 200
+    return jsonify(deactivate_cronjob()), 200
 
 
 @app.teardown_request
