@@ -202,7 +202,7 @@ def registered_connected():
 
 @app.route("/get_cronjob")
 def get_cronjob():
-    return jsonify(get_cronjob), 200
+    return jsonify(get_cronjob()), 200
 
 
 @app.route("/crontab")
