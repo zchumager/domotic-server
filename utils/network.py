@@ -27,8 +27,8 @@ def get_connected_devices():
             nm_scanner = nmap.PortScanner(nmap_search_path=nmap_path)
         elif platform.system() == 'Linux':
             nm_scanner = nmap.PortScanner()
-    except nmap.PortScannerError:
-        pass
+    except nmap.PortScannerError as e:
+        print(e.value)
 
     try:
         network = nm_scanner.scan(network_segment, arguments='-snP')
