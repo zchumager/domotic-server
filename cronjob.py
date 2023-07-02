@@ -108,6 +108,7 @@ def job():
 
 
 def get_cronjob():
+    # sudo is not needed when flask or guinicorn is being run with sudo privileges
     execution = os.popen('crontab -l | grep cronjob.py')
     output = execution.read()
     execution.close()
@@ -115,12 +116,14 @@ def get_cronjob():
 
 
 def deactivate_cronjob():
-    os.popen('sudo crontab -l | sed "/^[^#].*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^/#/" | sudo crontab -').close()
+    # sudo is not needed when flask or guinicorn is being run with sudo privileges
+    os.popen('crontab -l | sed "/^[^#].*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^/#/" | sudo crontab -').close()
     return "cronjob deactivated"
 
 
 def activate_cronjob():
-    os.popen('sudo crontab -l | sed "/^#.*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^#//" | sudo crontab -').close()
+    # sudo is not needed when flask or guinicorn is being run with sudo privileges
+    os.popen('crontab -l | sed "/^#.*\/home\/admin\/Repos\/domotic-server\/venv\/bin\/python \/home\/admin\/Repos\/domotic-server\/cronjob.py/s/^#//" | sudo crontab -').close()
     return "cronjob activated"
 
 
