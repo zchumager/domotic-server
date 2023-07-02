@@ -208,7 +208,7 @@ def enable_crontab():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot activate crontab"), 401
 
-    return activate_cronjob()
+    return jsonify(activate_cronjob()), 200
 
 
 @app.route("/quitcron")
@@ -219,7 +219,7 @@ def deactivate_crontab():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot deactivate crontab"), 401
 
-    return deactivate_cronjob()
+    return jsonify(msg=deactivate_cronjob()), 200
 
 
 @app.teardown_request
