@@ -243,7 +243,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"entity_id\": \"climate.air_conditioner_studio\",\n\t\"temperature\": 23,\n\t\"target_temp_high\": 26,\n\t\"target_temp_low\": 20,\n\t\"hvac_mode\": \"cool\"\n}",
+					"raw": "{\n\t\"entity_id\": \"climate.air_conditioner_studio\",\n\t\"temperature\": 22,\n\t\"target_temp_high\": 26,\n\t\"target_temp_low\": 20,\n\t\"hvac_mode\": \"cool\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

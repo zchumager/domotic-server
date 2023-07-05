@@ -222,12 +222,83 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/registered_devices",
+					"raw": "{{API_URL}}/registered_connected",
 					"host": [
 						"{{API_URL}}"
 					],
 					"path": [
-						"registered_devices"
+						"registered_connected"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_cronjob",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/get_cronjob",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"get_cronjob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crontab",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/crontab",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"crontab"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "quitcron",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/quitcron",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"quitcron"
 					]
 				}
 			},
@@ -413,6 +484,126 @@
 						{
 							"key": "partial_mac",
 							"value": "\"1F:34:7E:85:24\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2home pedro in other network",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"7B:36:39:4E:75\",\r\n    \"device_name\": \"Galaxy Note10 de Pedro Arnoldo\",\r\n\t\"email\": \"arnoldo.machadoduran@gmail.com\",\r\n\t\"firstname\": \"Arnoldo\",\r\n\t\"lastname\": \"Machado\",\r\n\t\"desired_temperature\": 23,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2home",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login pedro pedro in other network",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partial_mac\": \"7B:36:39:4E:75\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device_info pedro in other network",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/device_info?partial_mac=\"7B:36:39:4E:75\"",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"device_info"
+					],
+					"query": [
+						{
+							"key": "partial_mac",
+							"value": "\"7B:36:39:4E:75\""
 						}
 					]
 				}
