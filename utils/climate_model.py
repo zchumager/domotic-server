@@ -10,7 +10,9 @@ def basic(temperatures, weights):
     """
 
     print("Using climate model")
-
+    """
+        Summation of multiplication of temperature * weight
+    """
     dividend = reduce(add, map(mul, temperatures, weights))
     divisor = sum(weights)
 
