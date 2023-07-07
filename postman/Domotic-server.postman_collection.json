@@ -144,6 +144,35 @@
 			"response": []
 		},
 		{
+			"name": "update_expiration pedro",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"E6:8E:2F:2D:A9\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/update_expiration",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"update_expiration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "update_preferences pedro",
 			"request": {
 				"auth": {
@@ -174,317 +203,6 @@
 					],
 					"path": [
 						"update_preferences"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "all_devices",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{ACCESS_TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{API_URL}}/all_devices",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"all_devices"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "registered_devices",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{ACCESS_TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{API_URL}}/registered_connected",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"registered_connected"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "get_cronjob",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{API_URL}}/get_cronjob",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"get_cronjob"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "crontab",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{ACCESS_TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{API_URL}}/crontab",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"crontab"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "quitcron",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{ACCESS_TOKEN}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{API_URL}}/quitcron",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"quitcron"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "random_user",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Get random Data\", function () {\r",
-							"    var partialMac = \"XX:XX:XX:XX:XX\".replace(/X/g, function() {\r",
-							"        return \"0123456789ABCDEF\".charAt(Math.floor(Math.random() * 16))\r",
-							"    })\r",
-							"\r",
-							"    var desireTemperature = Math.floor(Math.random() * 21) + 9\r",
-							"    var medicalCondition = Math.random() >= 0.5\r",
-							"\r",
-							"    var medicalStates = [\"ESTABLE\", \"SERIO\", \"GRAVE\"]\r",
-							"    var randomIndex = Math.floor(Math.random() * medicalStates.length)\r",
-							"    var medicalConditionLevel = (medicalCondition)? medicalStates[randomIndex]: \"None\"\r",
-							"\r",
-							"    var jsonData = pm.response.json();\r",
-							"\r",
-							"    pm.environment.set(\"PARTIAL_MAC\", JSON.stringify(partialMac));\r",
-							"    pm.environment.set(\"DEVICE_NAME\", JSON.stringify(`Cellphone of ${jsonData.first_name}`))\r",
-							"    pm.environment.set(\"EMAIL\", JSON.stringify(jsonData.email))\r",
-							"    pm.environment.set(\"FIRST_NAME\", JSON.stringify(jsonData.first_name));\r",
-							"    pm.environment.set(\"LAST_NAME\", JSON.stringify(jsonData.last_name));\r",
-							"    pm.environment.set(\"DESIRE_TEMPERATURE\", parseInt(desireTemperature));\r",
-							"    pm.environment.set(\"MEDICAL_CONDITION\", JSON.stringify(medicalCondition));\r",
-							"    pm.environment.set(\"MEDICAL_CONDITION_LEVEL\", JSON.stringify(medicalConditionLevel));\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "https://random-data-api.com/api/users/random_user",
-					"protocol": "https",
-					"host": [
-						"random-data-api",
-						"com"
-					],
-					"path": [
-						"api",
-						"users",
-						"random_user"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "join2home random",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"partial_mac\": \"1F:34:7E:85:24\",\r\n    \"device_name\": \"eleonor.yost@email.com\",\r\n\t\"email\": \"eleonor.yost@email.com\",\r\n\t\"firstname\": \"Eleonor\",\r\n\t\"lastname\": \"Yost\",\r\n\t\"desired_temperature\": 25,\r\n\t\"medical_condition\": true,\r\n\t\"medical_condition_level\": \"GRAVE\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{API_URL}}/join2home",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"join2home"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "login random",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Token Generation\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    \r",
-							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"partial_mac\": \"1F:34:7E:85:24\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{API_URL}}/login",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "device_info random",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Token Generation\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    \r",
-							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{API_URL}}/device_info?partial_mac=\"1F:34:7E:85:24\"",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"device_info"
-					],
-					"query": [
-						{
-							"key": "partial_mac",
-							"value": "\"1F:34:7E:85:24\""
-						}
 					]
 				}
 			},
@@ -611,7 +329,292 @@
 			"response": []
 		},
 		{
-			"name": "join2family random",
+			"name": "all_devices",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/all_devices",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"all_devices"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registered_connected",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/registered_connected",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"registered_connected"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_cronjob",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/get_cronjob",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"get_cronjob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crontab",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/crontab",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"crontab"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "quitcron",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/quitcron",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"quitcron"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2home mama",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"88:76:5B:0E:2D\",\r\n    \"device_name\": \"moto g(8) play\",\r\n\t\"email\": \"chuyita.ramirez.1950@gmail.com\",\r\n\t\"firstname\": \"Maria\",\r\n\t\"lastname\": \"Ramirez\",\r\n\t\"desired_temperature\": 25,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_level\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2home",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login mama",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partial_mac\": \"88:76:5B:0E:2D\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device_info mama",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/device_info?partial_mac=\"88:76:5B:0E:2D\"",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"device_info"
+					],
+					"query": [
+						{
+							"key": "partial_mac",
+							"value": "\"88:76:5B:0E:2D\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_expiration mama",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"88:76:5B:0E:2D\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/update_expiration",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"update_expiration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2family mama",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -627,7 +630,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"habitant_partial_mac\": \"E6:8E:2F:2D:A9\",\r\n    \"visitor_partial_mac\": \"1F:34:7E:85:24\"\r\n}",
+					"raw": "{\r\n    \"habitant_partial_mac\": \"E6:8E:2F:2D:A9\",\r\n    \"visitor_partial_mac\": \"88:76:5B:0E:2D\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -641,6 +644,192 @@
 					],
 					"path": [
 						"join2family"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get random Data\", function () {\r",
+							"    var partialMac = \"XX:XX:XX:XX:XX\".replace(/X/g, function() {\r",
+							"        return \"0123456789ABCDEF\".charAt(Math.floor(Math.random() * 16))\r",
+							"    })\r",
+							"\r",
+							"    var desireTemperature = Math.floor(Math.random() * 21) + 9\r",
+							"    var medicalCondition = Math.random() >= 0.5\r",
+							"\r",
+							"    var medicalStates = [\"ESTABLE\", \"SERIO\", \"GRAVE\"]\r",
+							"    var randomIndex = Math.floor(Math.random() * medicalStates.length)\r",
+							"    var medicalConditionLevel = (medicalCondition)? medicalStates[randomIndex]: \"None\"\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.environment.set(\"PARTIAL_MAC\", JSON.stringify(partialMac));\r",
+							"    pm.environment.set(\"DEVICE_NAME\", JSON.stringify(`Cellphone of ${jsonData.first_name}`))\r",
+							"    pm.environment.set(\"EMAIL\", JSON.stringify(jsonData.email))\r",
+							"    pm.environment.set(\"FIRST_NAME\", JSON.stringify(jsonData.first_name));\r",
+							"    pm.environment.set(\"LAST_NAME\", JSON.stringify(jsonData.last_name));\r",
+							"    pm.environment.set(\"DESIRE_TEMPERATURE\", parseInt(desireTemperature));\r",
+							"    pm.environment.set(\"MEDICAL_CONDITION\", JSON.stringify(medicalCondition));\r",
+							"    pm.environment.set(\"MEDICAL_CONDITION_LEVEL\", JSON.stringify(medicalConditionLevel));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://random-data-api.com/api/users/random_user",
+					"protocol": "https",
+					"host": [
+						"random-data-api",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"random_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2home random",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"1F:34:7E:85:24\",\r\n    \"device_name\": \"Google Pixel 6\",\r\n\t\"email\": \"eleonor.yost@email.com\",\r\n\t\"firstname\": \"Eleonor\",\r\n\t\"lastname\": \"Yost\",\r\n\t\"desired_temperature\": 25,\r\n\t\"medical_condition\": true,\r\n\t\"medical_condition_level\": \"GRAVE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2home",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login random",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partial_mac\": \"1F:34:7E:85:24\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device_info random",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/device_info?partial_mac=\"1F:34:7E:85:24\"",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"device_info"
+					],
+					"query": [
+						{
+							"key": "partial_mac",
+							"value": "\"1F:34:7E:85:24\""
+						}
 					]
 				}
 			},
