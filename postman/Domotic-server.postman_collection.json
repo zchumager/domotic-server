@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7dbf4764-9080-496e-b16e-0bd94bda9611",
+		"_postman_id": "daf4f66e-42de-4e4d-b924-adb756678157",
 		"name": "Domotic-server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13947266"
@@ -24,13 +24,13 @@
 			"response": []
 		},
 		{
-			"name": "join2home pedro",
+			"name": "join2home jhon",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"partial_mac\": \"E6:8E:2F:2D:A9\",\r\n    \"device_name\": \"Galaxy Note10 de Pedro Arnoldo\",\r\n\t\"email\": \"arnoldo.machado@hotmail.com\",\r\n\t\"firstname\": \"Pedro\",\r\n\t\"lastname\": \"Machado\",\r\n\t\"desired_temperature\": 21,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}",
+					"raw": "{\r\n\t\"partial_mac\": \"E3:8F:2D:4B:A7\",\r\n    \"device_name\": \"Google Pixel 7\",\r\n\t\"email\": \"johnconnor@email.com\",\r\n\t\"firstname\": \"John\",\r\n\t\"lastname\": \"Connor\",\r\n\t\"desired_temperature\": 21,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -50,7 +50,7 @@
 			"response": []
 		},
 		{
-			"name": "login pedro",
+			"name": "login jhon",
 			"event": [
 				{
 					"listen": "test",
@@ -71,7 +71,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"partial_mac\": \"E6:8E:2F:2D:A9\"\r\n}",
+					"raw": "{\r\n    \"partial_mac\": \"E3:8F:2D:4B:A7\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -91,7 +91,7 @@
 			"response": []
 		},
 		{
-			"name": "device_info pedro",
+			"name": "device_info jhon",
 			"event": [
 				{
 					"listen": "test",
@@ -126,7 +126,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{API_URL}}/device_info?partial_mac=\"E6:8E:2F:2D:A9\"",
+					"raw": "{{API_URL}}/device_info?partial_mac=\"E3:8F:2D:4B:A7\"",
 					"host": [
 						"{{API_URL}}"
 					],
@@ -136,7 +136,7 @@
 					"query": [
 						{
 							"key": "partial_mac",
-							"value": "\"E6:8E:2F:2D:A9\""
+							"value": "\"E3:8F:2D:4B:A7\""
 						}
 					]
 				}
@@ -160,7 +160,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"partial_mac\": \"E6:8E:2F:2D:A9\",\r\n    \"device_name\": \"Galaxy-Note10-de-Pedro-Arnoldo\",\r\n\t\"email\": \"arnoldo.machado@hotmail.com\",\r\n\t\"firstname\": \"Pedro Arnoldo\",\r\n\t\"lastname\": \"Machado Duran\",\r\n\t\"desired_temperature\": 21,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}",
+					"raw": "{\r\n\t\"partial_mac\": \"E3:8F:2D:4B:A7\",\r\n    \"device_name\": \"Google Pixel\",\r\n\t\"email\": \"johnconnor@email.com\",\r\n\t\"firstname\": \"John\",\r\n\t\"lastname\": \"Connor\",\r\n\t\"desired_temperature\": 22,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -207,7 +207,7 @@
 			"response": []
 		},
 		{
-			"name": "registered_devices",
+			"name": "registered_connected",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -377,7 +377,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"partial_mac\": \"1F:34:7E:85:24\",\r\n    \"device_name\": \"eleonor.yost@email.com\",\r\n\t\"email\": \"eleonor.yost@email.com\",\r\n\t\"firstname\": \"Eleonor\",\r\n\t\"lastname\": \"Yost\",\r\n\t\"desired_temperature\": 25,\r\n\t\"medical_condition\": true,\r\n\t\"medical_condition_level\": \"GRAVE\"\r\n}",
+					"raw": "{\r\n\t\"partial_mac\": \"1F:34:7E:85:24\",\r\n    \"device_name\": \"Moto g(3)\",\r\n\t\"email\": \"eleonor.yost@email.com\",\r\n\t\"firstname\": \"Eleonor\",\r\n\t\"lastname\": \"Yost\",\r\n\t\"desired_temperature\": 25,\r\n\t\"medical_condition\": true,\r\n\t\"medical_condition_level\": \"GRAVE\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -491,126 +491,6 @@
 			"response": []
 		},
 		{
-			"name": "join2home pedro in other network",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"partial_mac\": \"7B:36:39:4E:75\",\r\n    \"device_name\": \"Galaxy Note10 de Pedro Arnoldo\",\r\n\t\"email\": \"arnoldo.machadoduran@gmail.com\",\r\n\t\"firstname\": \"Arnoldo\",\r\n\t\"lastname\": \"Machado\",\r\n\t\"desired_temperature\": 23,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{API_URL}}/join2home",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"join2home"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "login pedro pedro in other network",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Token Generation\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    \r",
-							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"partial_mac\": \"7B:36:39:4E:75\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{API_URL}}/login",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "device_info pedro in other network",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Token Generation\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    \r",
-							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{API_URL}}/device_info?partial_mac=\"7B:36:39:4E:75\"",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"device_info"
-					],
-					"query": [
-						{
-							"key": "partial_mac",
-							"value": "\"7B:36:39:4E:75\""
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "join2family random",
 			"request": {
 				"auth": {
@@ -627,7 +507,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"habitant_partial_mac\": \"E6:8E:2F:2D:A9\",\r\n    \"visitor_partial_mac\": \"1F:34:7E:85:24\"\r\n}",
+					"raw": "{\r\n    \"habitant_partial_mac\": \"E3:8F:2D:4B:A7\",\r\n    \"visitor_partial_mac\": \"1F:34:7E:85:24\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
