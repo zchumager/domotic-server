@@ -3,10 +3,10 @@ import os
 from flask import Flask, send_from_directory, jsonify, request, render_template
 from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 
-from utils.crud import get_registered_device, get_registered_devices, update_role
+from utils.crud import update_expiration_timestamp, get_registered_device, get_registered_devices, update_role
 from utils.models import session, Device
 from utils.network import get_connected_devices, get_server_ip
-from cronjob import wait_for_registered_connected_devices, get_cronjob, activate_cronjob, deactivate_cronjob
+from cronjob import get_registered_connected_devices, get_cronjob, activate_cronjob, deactivate_cronjob
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -151,6 +151,18 @@ def device_info():
     return jsonify(info), 200
 
 
+@app.route("/update_expiration", methods=["PUT"])
+def update_expiration():
+    body = request.get_json()
+    partial_mac = body.get('partial_mac', None)
+    if partial_mac is None:
+        return jsonify(msg="bad Request for updating expiration"), 400
+
+    new_timestamp = update_expiration_timestamp(partial_mac)
+
+    return jsonify(new_timestamp), 201
+
+
 @app.route("/update_preferences", methods=["PUT"])
 @jwt_required()
 def update_preferences():
@@ -195,7 +207,7 @@ def registered_connected():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot list active devices"), 401
 
-    mac_addresses = wait_for_registered_connected_devices()
+    mac_addresses = get_registered_connected_devices()
 
     return jsonify(mac_addresses), 200
 

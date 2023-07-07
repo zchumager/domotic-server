@@ -1,6 +1,6 @@
 import os
-
-from sqlalchemy import create_engine, Column, Integer, String, Boolean
+from datetime import datetime, timedelta
+from sqlalchemy import create_engine, Column, Integer, String, Boolean, DateTime
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from marshmallow_sqlalchemy import SQLAlchemySchema
@@ -19,6 +19,9 @@ class Device(Orm):
     id = Column(Integer, primary_key=True)
     partial_mac = Column(String, unique=True, nullable=False)
     device_name = Column(String, nullable=False)
+
+    _expiration_minutes = datetime.now() + timedelta(minutes=2)
+    expiration_timestamp = Column(DateTime, default=_expiration_minutes)
 
     email = Column(String)
     firstname = Column(String, nullable=False)

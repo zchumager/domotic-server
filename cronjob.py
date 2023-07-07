@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 from utils.network import get_connected_devices
 from utils.models import session
-from utils.crud import get_registered_devices, get_active_devices
+from utils.crud import get_active_devices_by_timestamp, get_registered_devices, get_active_devices
 from utils.climate import calculate_with_model, get_ac_state, change_temperature
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -15,6 +15,10 @@ base_dir = os.path.abspath(os.path.dirname(__file__))
 
 def logfile_path():
     return os.path.join(base_dir, 'active_devices.log')
+
+
+def get_registered_connected_devices():
+    return [device.partial_mac for device in get_active_devices_by_timestamp()]
 
 
 def wait_for_registered_connected_devices(seconds_timeout=30):
@@ -50,7 +54,7 @@ def job():
     active_devices_mac list is used to write active_devices.log file and
     active_devices list is used to change the temperature
     '''
-    registered_connected = wait_for_registered_connected_devices()
+    registered_connected = get_registered_connected_devices()
 
     logfile = logfile_path()
     update_log = False
