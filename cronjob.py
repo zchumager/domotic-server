@@ -17,6 +17,10 @@ def logfile_path():
     return os.path.join(base_dir, 'active_devices.log')
 
 
+def get_registered_connected_devices():
+    return [device.partial_mac for device in get_active_devices_by_timestamp()]
+
+
 def wait_for_registered_connected_devices(seconds_timeout=30):
     """""
     Get devices in the network that are registered into utils/app.db
@@ -50,7 +54,7 @@ def job():
     active_devices_mac list is used to write active_devices.log file and
     active_devices list is used to change the temperature
     '''
-    registered_connected = get_active_devices_by_timestamp()
+    registered_connected = get_registered_connected_devices()
 
     logfile = logfile_path()
     update_log = False
