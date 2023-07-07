@@ -1,4 +1,3 @@
-import itertools
 from utils.models import session, Device
 
 
