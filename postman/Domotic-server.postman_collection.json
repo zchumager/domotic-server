@@ -144,7 +144,7 @@
 			"response": []
 		},
 		{
-			"name": "update_preferences pedro",
+			"name": "update_preferences john",
 			"request": {
 				"auth": {
 					"type": "bearer",
