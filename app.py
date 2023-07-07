@@ -208,7 +208,11 @@ def registered_connected():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot list active devices"), 401
 
+<<<<<<< HEAD
     mac_addresses = [device.partial_mac for device in get_active_devices_by_timestamp()]
+=======
+    mac_addresses = wait_for_registered_connected_devices()
+>>>>>>> cc731fcce9401c797389243f680c8c69fd7e6e5e
 
     return jsonify(mac_addresses), 200
 
