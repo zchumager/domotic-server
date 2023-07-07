@@ -195,9 +195,9 @@ def registered_connected():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot list active devices"), 401
 
-    connected_devices_of_connected_devices = wait_for_registered_connected_devices()
+    mac_addresses = wait_for_registered_connected_devices()
 
-    return jsonify(connected_devices_of_connected_devices), 200
+    return jsonify(mac_addresses), 200
 
 
 @app.route("/get_cronjob")
