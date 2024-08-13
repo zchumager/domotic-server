@@ -28,7 +28,9 @@
 2- Verify docker installation
 > docker --version
 
-- Start Home Assistant using docker-compose.yml
+3- Create config folder inside container directory for docker compose configuration
+
+4- Start Home Assistant using docker-compose.yml
 > sudo docker compose up -d
 
 ## Home Assistant configuration
