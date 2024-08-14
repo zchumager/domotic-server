@@ -5,13 +5,13 @@
 > sudo docker compose up -d
 
 ### Create venv
-> python -m venv venv
+> python3 -m venv venv
 
 ### Activate venv (Linux)
 > source venv/bin/activate
 
 ### Install dependencies in venv 
-> python -m pip install -r requirements.txt
+> python3 -m pip install -r requirements.txt
 
 ### Run CLI as sudo with venv to get network devices
 > sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --all_devices
