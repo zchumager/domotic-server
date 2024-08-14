@@ -29,6 +29,7 @@
 > docker --version
 
 3- Create config folder inside container directory for docker compose configuration
+> mkdir /home/admin/Repos/domotic-server/container/config
 
 4- Start Home Assistant using docker-compose.yml
 > sudo docker compose up -d
