@@ -14,6 +14,7 @@ def get_registered_device(partial_mac):
 
 
 def get_active_devices_by_timestamp():
+    # get all the devices which timestamp is greater than now
     devices = session.query(Device).filter(Device.expiration_timestamp >= datetime.now()).all()
     return devices
 
