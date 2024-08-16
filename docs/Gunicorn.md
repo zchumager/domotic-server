@@ -17,4 +17,4 @@
 > sudo venv/bin/gunicorn --workers 20 --bind=0.0.0.0:5000 wsgi:app --daemon
 
 ### Kill detached gunicorn
-> sudo pkil gunicorn
+> sudo pkill gunicorn
