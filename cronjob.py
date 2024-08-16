@@ -5,7 +5,7 @@ import config
 
 from datetime import datetime, timedelta
 
-from utils.network import get_connected_devices
+from utils.network import get_connected_macs
 from utils.models import session
 from utils.crud import get_active_devices_by_timestamp, get_registered_devices, get_active_devices
 from utils.climate import calculate_with_model, get_ac_state, change_temperature
@@ -18,33 +18,44 @@ def logfile_path():
 
 
 def get_registered_connected_devices():
+    # list of active devices on network based on an active session using timestamp
     return [device.partial_mac for device in get_active_devices_by_timestamp()]
 
 
-def wait_for_registered_connected_devices(seconds_timeout=30):
+def wait_for_registered_connected_macs(seconds_timeout=30):
     """""
     Get devices in the network that are registered into utils/app.db
+    
+    Important note: This method is deprecated since it was replaced by the method above
+    get_registered_connected_devices.
+    
+    The reason for the deprecation of this function is because of the creation 
+    of an intersection set between registered_macs and connected_macs by NMAP
+    sometimes returns an empty list.
+    In other words NMAP  is not always returning a list of registered_connected_macs
+    due to network flakiness, but the code is being conserved because
+    this was the first approach to define active devices on network.
     """""
 
-    registered_devices = [registered_device.partial_mac for registered_device in get_registered_devices()]
-    connected_devices = [device[3:] for device in get_connected_devices()]
+    registered_macs = [registered_device.partial_mac for registered_device in get_registered_devices()]
+    connected_macs = [mac[3:] for mac in get_connected_macs()]
 
     # intersection to get connected devices that has been registered
-    registered_connected = get_active_devices(connected_devices)
+    registered_connected_macs = get_active_devices(connected_macs)
     timeout = datetime.now() + timedelta(seconds=seconds_timeout)
 
     '''
     timeout for mitigating WiFi intermitences 
     to force finding registered devices that are connected to the network
     '''
-    if not len(get_active_devices(connected_devices)):
-        while not len(registered_connected) and datetime.now() <= timeout:
-            connected_devices = [device[3:] for device in get_connected_devices()]
-            registered_connected = list(set(registered_devices) & set(connected_devices))
+    if not len(get_active_devices(connected_macs)):
+        while not len(registered_connected_macs) and datetime.now() <= timeout:
+            connected_macs = [mac[3:] for mac in get_connected_macs()]
+            registered_connected_macs = list(set(registered_macs) & set(connected_macs))
     else:
-        registered_connected = list(set(registered_devices) & set(connected_devices))
+        registered_connected_macs = list(set(registered_macs) & set(connected_macs))
 
-    return registered_connected
+    return registered_connected_macs
 
 
 def job():
