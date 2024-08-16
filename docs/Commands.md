@@ -11,10 +11,10 @@
 > python -m pip install -r requirements.txt
 
 ### Run CLI as sudo with venv to get network devices
-> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --all_devices
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --connected_macs
 
 ### Run CLI as sudo with venv to get registered network devices
-> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --registered_devices
+> sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python cli.py --registered_connected_macs
 
 ### Run Web API (sudo is required because of nmap) with venv
 > sudo env "PATH=$PATH VIRTUAL_ENV=$VIRTUAL_ENV" python -m flask run --host=0.0.0.0
