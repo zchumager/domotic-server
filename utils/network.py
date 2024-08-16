@@ -13,7 +13,7 @@ def get_server_ip():
     return skt.getsockname()[0]
 
 
-def get_connected_devices():
+def get_connected_macs():
     print("Getting Connected Devices")
 
     server_ip = get_server_ip()
