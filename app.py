@@ -5,7 +5,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 
 from utils.crud import update_expiration_timestamp, get_registered_device, get_registered_devices, update_role
 from utils.models import session, Device
-from utils.network import get_connected_devices, get_server_ip
+from utils.network import get_connected_macs, get_server_ip
 from cronjob import get_registered_connected_devices, get_cronjob, activate_cronjob, deactivate_cronjob
 
 app = Flask(__name__)
@@ -188,7 +188,7 @@ def update_preferences():
     return jsonify(body), 201
 
 
-@app.route("/all_devices")
+@app.route("/all_connected_macs")
 @jwt_required()
 def all_devices():
     identity = get_jwt_identity()
@@ -196,10 +196,10 @@ def all_devices():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot list connected devices"), 401
 
-    return jsonify(get_connected_devices()), 200
+    return jsonify(get_connected_macs()), 200
 
 
-@app.route("/registered_connected")
+@app.route("/registered_connected_macs")
 @jwt_required()
 def registered_connected():
     identity = get_jwt_identity()
