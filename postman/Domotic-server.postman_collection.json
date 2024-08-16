@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "7dbf4764-9080-496e-b16e-0bd94bda9611",
+		"_postman_id": "73ee3eb3-976b-467f-9b9b-27eb31681c9c",
 		"name": "Domotic-server",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "13947266"
+		"_exporter_id": "6406848"
 	},
 	"item": [
 		{
@@ -329,7 +329,7 @@
 			"response": []
 		},
 		{
-			"name": "all_devices",
+			"name": "all_connected_macs",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -344,19 +344,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/all_devices",
+					"raw": "{{API_URL}}/all_connected_macs",
 					"host": [
 						"{{API_URL}}"
 					],
 					"path": [
-						"all_devices"
+						"all_connected_macs"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "registered_connected",
+			"name": "registered_connected_macs",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -371,12 +371,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{API_URL}}/registered_connected",
+					"raw": "{{API_URL}}/registered_connected_macs",
 					"host": [
 						"{{API_URL}}"
 					],
 					"path": [
-						"registered_connected"
+						"registered_connected_macs"
 					]
 				}
 			},
