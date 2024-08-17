@@ -26,7 +26,7 @@ def get_weight_from_device(device):
                 return 9
 
 
-def calculate_with_model(active_devices, model):
+def calculate_with_model(active_devices):
     print("Calculating Temperature")
 
     temperatures = []
@@ -36,10 +36,8 @@ def calculate_with_model(active_devices, model):
         temperatures.append(device.desired_temperature)
         weights.append(get_weight_from_device(device))
 
-    if model == "basic":
-        print("Calculating temperature with basic model")
-
-        return climate_model.basic(temperatures, weights)
+    print("Calculating temperature with climate_model")
+    return climate_model.execute(temperatures, weights)
 
 
 def get_ac_state():

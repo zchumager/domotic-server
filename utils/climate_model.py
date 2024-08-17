@@ -2,7 +2,7 @@ from functools import reduce
 from operator import add, mul
 
 
-def basic(temperatures, weights):
+def execute(temperatures, weights):
     """
     :param temperatures: list of temperatures
     :param weights: list of weights related to each temperature
@@ -17,8 +17,3 @@ def basic(temperatures, weights):
     divisor = sum(weights)
 
     return dividend // divisor
-
-
-"""
-Add more models to be used for calculating temperature
-"""

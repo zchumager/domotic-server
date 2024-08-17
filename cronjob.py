@@ -1,7 +1,6 @@
 import json
 import threading
 import os
-import config
 
 from datetime import datetime, timedelta
 
@@ -92,7 +91,7 @@ def job():
             json.dump(registered_connected, log)
 
             if len(registered_connected) > 0:
-                desired_temperature = calculate_with_model(get_active_devices(registered_connected), model=config.climate_model)
+                desired_temperature = calculate_with_model(get_active_devices(registered_connected))
                 response = change_temperature(desired_temperature)
 
                 if response.ok:
@@ -104,8 +103,7 @@ def job():
     else:
         if len(registered_connected) > 0:
             ac_state = get_ac_state()
-            desired_temperature = calculate_with_model(get_active_devices(registered_connected),
-                                                       model=config.climate_model)
+            desired_temperature = calculate_with_model(get_active_devices(registered_connected))
 
             current_temperature = ac_state.json()['attributes']['temperature']
 
