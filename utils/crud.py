@@ -22,8 +22,8 @@ def get_active_devices_by_timestamp():
     return devices
 
 
-def get_active_devices(macs):
-    active_devices = session.query(Device).filter(Device.partial_mac.in_(macs)).all()
+def get_active_devices(partial_macs):
+    active_devices = session.query(Device).filter(Device.partial_mac.in_(partial_macs)).all()
     return active_devices
 
 
