@@ -6,7 +6,7 @@ from flask_jwt_extended import JWTManager, create_access_token, jwt_required, ge
 from utils.crud import update_expiration_timestamp, get_registered_device, get_registered_devices, update_role
 from utils.models import session, Device
 from utils.network import get_connected_macs, get_server_ip
-from cronjob import get_registered_connected_devices, get_cronjob, activate_cronjob, deactivate_cronjob
+from cronjob import get_registered_connected_macs, get_cronjob, activate_cronjob, deactivate_cronjob
 
 app = Flask(__name__)
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
@@ -207,7 +207,7 @@ def registered_connected():
     if identity == 'visitor':
         return jsonify(msg="any visitor cannot list active devices"), 401
 
-    mac_addresses = get_registered_connected_devices()
+    mac_addresses = get_registered_connected_macs()
 
     return jsonify(mac_addresses), 200
 
