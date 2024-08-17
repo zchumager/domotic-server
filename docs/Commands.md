@@ -27,5 +27,8 @@ OR
 ### Restart bash terminal
 > exec $SHELL
 
+## exit venv
+>  deactivate
+
 ### Restart Raspberry
 > sudo reboot now

@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 from utils.network import get_connected_macs
 from utils.models import session
-from utils.crud import get_active_devices_by_timestamp, get_registered_devices, get_active_devices
+from utils.crud import get_active_devices_by_timestamp, get_registered_devices, get_registered_connected_devices
 from utils.climate import calculate_with_model, get_ac_state, change_temperature
 
 base_dir = os.path.abspath(os.path.dirname(__file__))
@@ -40,15 +40,16 @@ def wait_for_registered_connected_macs(seconds_timeout=30):
     connected_macs = [mac[3:] for mac in get_connected_macs()]
 
     # intersection to get connected devices that has been registered
-    registered_connected_macs = get_active_devices(connected_macs)
+    registered_connected_devices = get_registered_connected_devices(connected_macs)
     timeout = datetime.now() + timedelta(seconds=seconds_timeout)
 
     '''
     timeout for mitigating WiFi intermitences 
     to force finding registered devices that are connected to the network
     '''
-    if not len(get_active_devices(connected_macs)):
-        while not len(registered_connected_macs) and datetime.now() <= timeout:
+    registered_connected_macs = []
+    if not len(get_registered_connected_devices(connected_macs)):
+        while not len(registered_connected_devices) and datetime.now() <= timeout:
             connected_macs = [mac[3:] for mac in get_connected_macs()]
             registered_connected_macs = list(set(registered_macs) & set(connected_macs))
     else:
@@ -64,22 +65,26 @@ def job():
     active_devices_mac list is used to write active_devices.log file and
     active_devices list is used to change the temperature
     '''
-    registered_connected = get_registered_connected_macs()
+    registered_connected_macs = get_registered_connected_macs()
 
     logfile = logfile_path()
     update_log = False
+
+    def registered_connected_macs_in_network():
+        # inner function to improve code readability
+        return len(registered_connected_macs) > 0
 
     # creates the log file if not exists
     if not os.path.exists(logfile):
         print("Creating active devices log file for cronjob")
         with open(logfile, 'w') as log:
-            json.dump(registered_connected, log)
+            json.dump(registered_connected_macs, log)
 
     # checks if the active devices in network have changed
     print("Reading active devices log")
     with open(logfile, 'r') as log:
         macs_in_file = json.loads(log.readline())
-        if macs_in_file != registered_connected:
+        if macs_in_file != registered_connected_macs:
             print("Devices list have change")
             update_log = True
         else:
@@ -88,10 +93,10 @@ def job():
     # updates the log file
     if update_log:
         with open(logfile, 'w') as log:
-            json.dump(registered_connected, log)
+            json.dump(registered_connected_macs, log)
 
-            if len(registered_connected) > 0:
-                desired_temperature = calculate_with_model(get_active_devices(registered_connected))
+            if registered_connected_macs_in_network():
+                desired_temperature = calculate_with_model(get_registered_connected_devices(registered_connected_macs))
                 response = change_temperature(desired_temperature)
 
                 if response.ok:
@@ -100,22 +105,26 @@ def job():
                     print("The temperature could not be modified")
             else:
                 print("There are no users connected")
+                # right here the AC can be turned off
     else:
-        if len(registered_connected) > 0:
+        if registered_connected_macs_in_network:
             ac_state = get_ac_state()
-            desired_temperature = calculate_with_model(get_active_devices(registered_connected))
+            desired_temperature = calculate_with_model(get_registered_connected_devices(registered_connected_macs))
 
-            current_temperature = ac_state.json()['attributes']['temperature']
+            system_temperature = ac_state.json()['attributes']['temperature']
 
-            if current_temperature != desired_temperature:
+            if system_temperature != desired_temperature:
                 response = change_temperature(desired_temperature)
 
                 if response.ok:
                     print(f"The new temperature is {desired_temperature}")
                 else:
                     print("The temperature could not be modified")
+            else:
+                print("system temperature is the same that calculated temperature")
         else:
             print("There are no users connected")
+            # right here the AC can be turned off
 
     session.remove()
 
