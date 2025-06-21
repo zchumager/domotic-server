@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "3db4e82f-e440-444f-a7a0-5ae74b8d682a",
+		"name": "Domotic-server-smoke",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6406848"
+	},
+	"item": [
+		{
+			"name": "smoke about",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/about",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"about"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "smoke join2home user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"00:00:00:00:00\",\r\n    \"device_name\": \"Cellphone of user1\",\r\n\t\"email\": \"user1@email.com\",\r\n\t\"firstname\": \"user1\",\r\n\t\"lastname\": \"nolastname\",\r\n\t\"desired_temperature\": 21,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2home",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "smoke login user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partial_mac\": \"00:00:00:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "smoke device_info user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/device_info?partial_mac=\"00:00:00:00:00\"",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"device_info"
+					],
+					"query": [
+						{
+							"key": "partial_mac",
+							"value": "\"00:00:00:00:00\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "smoke update_preferences user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"00:00:00:00:00\",\r\n    \"device_name\": \"Cellphone of user1\",\r\n\t\"email\": \"user1@email.com\",\r\n\t\"firstname\": \"user1\",\r\n\t\"lastname\": \"nolastname\",\r\n\t\"desired_temperature\": 22,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/update_preferences",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"update_preferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "smoke update_expiration user",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"00:00:00:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/update_expiration",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"update_expiration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "smoke all_connected_macs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/all_connected_macs",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"all_connected_macs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "smoke registered_connected_macs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/registered_connected_macs",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"registered_connected_macs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "smoke get_cronjob",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/get_cronjob",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"get_cronjob"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

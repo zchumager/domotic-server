@@ -1,0 +1,19 @@
+# put below Home Assistant existing configuration in container/configuration.yml
+
+smartir:
+
+climate:
+  - platform: smartir
+    name: <Name of the device defined in the app>
+    unique_id: <name_of_the_device_defined_in_the_app_separated_by_underscore>
+    device_code: 2100
+    controller_data: remote.zhi_neng_yao_kong
+
+# recomended value for name is Air Conditioner, so for unique_id is air_conditioner
+# which is being displayed as climate.air_conditioner in Home Assistant
+
+# for this POC the name used is Air conditioner studio
+# which is being displayed as climate.air_conditioner_studio in Home Assistant
+# so unique_id defined in container/config/configuration.yaml is air_conditioner_studio
+
+# For further information visit https://github.com/smartHomeHub/SmartIR/blob/master/docs/CLIMATE.md

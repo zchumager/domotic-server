@@ -1,0 +1,11 @@
+version: '3'
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "homeassistant/home-assistant:2023.6.2"
+    volumes:
+      - /home/admin/Repos/domotic-server/container/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host

@@ -1,0 +1,10 @@
+[Unit]
+Description=Flask instance to serve REST API
+After=network.target
+
+[Service]
+WorkingDirectory=/home/admin/Repos/domotic-server
+ExecStart=/usr/bin/sudo /home/admin/Repos/domotic-server/venv/bin/python /home/admin/Repos/domotic-server/app.py
+
+[Install]
+WantedBy=multi-user.target

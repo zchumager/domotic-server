@@ -1,0 +1,849 @@
+{
+	"info": {
+		"_postman_id": "73ee3eb3-976b-467f-9b9b-27eb31681c9c",
+		"name": "Domotic-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6406848"
+	},
+	"item": [
+		{
+			"name": "about",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/about",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"about"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2home user1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"00:00:00:00:00\",\r\n    \"device_name\": \"Cellphone of user1\",\r\n\t\"email\": \"user1@email.com\",\r\n\t\"firstname\": \"user1\",\r\n\t\"lastname\": \"nolastname\",\r\n\t\"desired_temperature\": 21,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2home",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partial_mac\": \"00:00:00:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device_info user1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/device_info?partial_mac=\"00:00:00:00:00\"",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"device_info"
+					],
+					"query": [
+						{
+							"key": "partial_mac",
+							"value": "\"00:00:00:00:00\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_preferences user1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"00:00:00:00:00\",\r\n    \"device_name\": \"Cellphone of user1\",\r\n\t\"email\": \"user1@email.com\",\r\n\t\"firstname\": \"user1\",\r\n\t\"lastname\": \"nolastname\",\r\n\t\"desired_temperature\": 22,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/update_preferences",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"update_preferences"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_expiration user1",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"00:00:00:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/update_expiration",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"update_expiration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2home user1 in other network",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"FF:FF:FF:FF:FF\",\r\n    \"device_name\": \"Cellphone of user1\",\r\n\t\"email\": \"user1@email.com\",\r\n\t\"firstname\": \"user1\",\r\n\t\"lastname\": \"nolastname\",\r\n\t\"desired_temperature\": 23,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_status\": \"\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2home",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user1 in other network",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partial_mac\": \"FF:FF:FF:FF:FF\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device_info user1 in other network",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/device_info?partial_mac=\"FF:FF:FF:FF:FF\"",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"device_info"
+					],
+					"query": [
+						{
+							"key": "partial_mac",
+							"value": "\"FF:FF:FF:FF:FF\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all_connected_macs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/all_connected_macs",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"all_connected_macs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registered_connected_macs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/registered_connected_macs",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"registered_connected_macs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_cronjob",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/get_cronjob",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"get_cronjob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crontab",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/crontab",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"crontab"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "quitcron",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/quitcron",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"quitcron"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2home user2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"11:11:11:11:11\",\r\n    \"device_name\": \"cellphone of user2\",\r\n\t\"email\": \"user20@email.com\",\r\n\t\"firstname\": \"user2\",\r\n\t\"lastname\": \"nolastname\",\r\n\t\"desired_temperature\": 25,\r\n\t\"medical_condition\": false,\r\n\t\"medical_condition_level\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2home",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partial_mac\": \"11:11:11:11:11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device_info user2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/device_info?partial_mac=\"11:11:11:11:11\"",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"device_info"
+					],
+					"query": [
+						{
+							"key": "partial_mac",
+							"value": "\"11:11:11:11:11\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update_expiration user2",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"11:11:11:11:11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/update_expiration",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"update_expiration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2family user2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{ACCESS_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"habitant_partial_mac\": \"00:00:00:00:00\",\r\n    \"visitor_partial_mac\": \"11:11:11:11:11\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2family",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2family"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random_user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Get random Data\", function () {\r",
+							"    var partialMac = \"XX:XX:XX:XX:XX\".replace(/X/g, function() {\r",
+							"        return \"0123456789ABCDEF\".charAt(Math.floor(Math.random() * 16))\r",
+							"    })\r",
+							"\r",
+							"    var desireTemperature = Math.floor(Math.random() * 21) + 9\r",
+							"    var medicalCondition = Math.random() >= 0.5\r",
+							"\r",
+							"    var medicalStates = [\"ESTABLE\", \"SERIO\", \"GRAVE\"]\r",
+							"    var randomIndex = Math.floor(Math.random() * medicalStates.length)\r",
+							"    var medicalConditionLevel = (medicalCondition)? medicalStates[randomIndex]: \"None\"\r",
+							"\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    pm.environment.set(\"PARTIAL_MAC\", JSON.stringify(partialMac));\r",
+							"    pm.environment.set(\"DEVICE_NAME\", JSON.stringify(`Cellphone of ${jsonData.first_name}`))\r",
+							"    pm.environment.set(\"EMAIL\", JSON.stringify(jsonData.email))\r",
+							"    pm.environment.set(\"FIRST_NAME\", JSON.stringify(jsonData.first_name));\r",
+							"    pm.environment.set(\"LAST_NAME\", JSON.stringify(jsonData.last_name));\r",
+							"    pm.environment.set(\"DESIRE_TEMPERATURE\", parseInt(desireTemperature));\r",
+							"    pm.environment.set(\"MEDICAL_CONDITION\", JSON.stringify(medicalCondition));\r",
+							"    pm.environment.set(\"MEDICAL_CONDITION_LEVEL\", JSON.stringify(medicalConditionLevel));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://random-data-api.com/api/users/random_user",
+					"protocol": "https",
+					"host": [
+						"random-data-api",
+						"com"
+					],
+					"path": [
+						"api",
+						"users",
+						"random_user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "join2home random",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"partial_mac\": \"${{PARTIAL_MAC}}\",\r\n    \"device_name\": \"${{DEVICE_NAME}}\",\r\n\t\"email\": \"${{EMAIL}}\",\r\n\t\"firstname\": \"${{FIRST_NAME}}\",\r\n\t\"lastname\": \"${{LAST_NAME}}\",\r\n\t\"desired_temperature\": \"${{DESIRE_TEMPERATURE}}\",\r\n\t\"medical_condition\": \"${{MEDICAL_CONDITION}}\",\r\n\t\"medical_condition_level\": \"${{MEDICAL_CONDITION_LEVEL}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/join2home",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"join2home"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login random",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"partial_mac\": \"${{PARTIAL_MAC}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/login",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "device_info random",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Token Generation\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    \r",
+							"    pm.environment.set(\"ACCESS_TOKEN\", jsonData.access_token);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API_URL}}/device_info?partial_mac=\"${{PARTIAL_MAC}}\"",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"device_info"
+					],
+					"query": [
+						{
+							"key": "partial_mac",
+							"value": "\"${{PARTIAL_MAC}}\""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
